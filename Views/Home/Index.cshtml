@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Exames de Saúde";
+
+    List<string> exames = new List<string> { "Exame de sangue", "Raio-X", "Eletrocardiograma" };
+}
+
+<div class="container mt-4">
+    <h1 class="display-5">Cadastro de Exames</h1>
+
+    @using (Html.BeginForm("CadastrarExame", "Home", FormMethod.Post))
+    {
+        <div class="form-group mb-3">
+            <label for="Nome">Nome do Exame</label>
+            <input type="text" name="Nome" class="form-control" placeholder="Digite o nome do exame" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Tipo">Tipo</label>
+            <select name="Tipo" class="form-control">
+                <option>Laboratorial</option>
+                <option>Imagem</option>
+                <option>Clínico</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Data">Data de Realização</label>
+            <input type="date" name="Data" class="form-control" required />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="Observacoes">Observações</label>
+            <textarea name="Observacoes" class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    }
+
+    <hr />
+
+    <h2 class="mt-4">Exames já cadastrados</h2>
+    <ul class="list-group">
+        @foreach (var exame in exames)
+        {
+            <li class="list-group-item">@exame</li>
+        }
+    </ul>
+</div>
