@@ -1,8 +1,114 @@
 ﻿@{
-    
-    Layout = "_Layout";
+    ViewData["Title"] = "Exames de Saúde";
+
+    List<string> exames = new List<string> { "Exame de sangue", "Raio-X", "Eletrocardiograma" };
 }
 
+<div class="container mt-5">
+    <div class="card shadow-card border-0 rounded-4">
+        <div class="card-body p-4">
+            <h1 class="mb-4 fw-bold text-center">Cadastro de Exames</h1>
 
+            @using (Html.BeginForm("CadastrarExame", "Home", FormMethod.Post))
+            {
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="Nome" class="form-label fw-semibold">Nome do Exame</label>
+                        <input type="text" name="Nome" class="form-control rounded-3" placeholder="Digite o nome do exame" required />
+                    </div>
 
-<h1> ola mundo</h1>
+                    <div class="col-md-6">
+                        <label for="Tipo" class="form-label fw-semibold">Tipo</label>
+                        <select name="Tipo" class="form-select rounded-3">
+                            <option>Laboratorial</option>
+                            <option>Imagem</option>
+                            <option>Clínico</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="Data" class="form-label fw-semibold">Data de Realização</label>
+                        <input type="date" name="Data" class="form-control rounded-3" required />
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="Observacoes" class="form-label fw-semibold">Observações</label>
+                        <textarea name="Observacoes" class="form-control rounded-3" rows="3" placeholder="Digite observações..."></textarea>
+                    </div>
+                </div>
+
+                <div class="text-end mt-4">
+                    <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm">
+                        <i class="bi bi-save"></i> Cadastrar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="fw-bold">Exames já cadastrados</h2>
+        <ul class="list-group shadow-sm rounded-3 mt-3">
+            @foreach (var exame in exames)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>@exame</span>
+                    <span class="badge rounded-pill">✔</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<style>
+    /* ===== Identidade Visual SIRESP (Azul) ===== */
+    :root {
+        --sir-blue: #003366;
+        --sir-blue-dark: #002244;
+        --sir-gray-dark: #333333;
+        --sir-gray-light: #F2F2F2;
+    }
+
+    body {
+        background-color: var(--sir-gray-light);
+        color: var(--sir-gray-dark);
+    }
+
+    .card {
+        background: #ffffff;
+    }
+
+    .shadow-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        background-color: var(--sir-blue);
+        border-color: var(--sir-blue-dark);
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--sir-blue-dark);
+            transform: translateY(-2px);
+        }
+
+    .form-label, .form-select, .form-control {
+        color: var(--sir-gray-dark);
+    }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--sir-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0, 51, 102, 0.25);
+        }
+
+    h1, h2 {
+        color: var(--sir-gray-dark);
+    }
+
+    .badge {
+        background-color: var(--sir-blue);
+        color: #fff;
+    }
+</style>
