@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\vinicius\\Documents\\Faculdade\\4o_bim\\FabricaDeProjetos\\projeto\\SirespFacil\\SirespFacil.csproj": {}
   },
   "projects": {
@@ -15,6 +16,26 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vinicius\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\SirespFacil.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\SirespFacil.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\SirespFacil.csproj",
+        "projectName": "SirespFacil",
+        "projectPath": "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\SirespFacil.csproj",
+        "packagesPath": "C:\\Users\\Duda\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Duda\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +43,10 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+<<<<<<< HEAD
           "C:\\Program Files\\dotnet\\library-packs": {},
+=======
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,11 +64,17 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
+<<<<<<< HEAD
         }
+=======
+        },
+        "SdkAnalysisLevel": "9.0.300"
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+<<<<<<< HEAD
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -61,6 +91,8 @@
               "version": "[9.0.9, )"
             }
           },
+=======
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
           "imports": [
             "net461",
             "net462",
@@ -80,7 +112,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
         }
       }
     }

@@ -1,88 +1,150 @@
-﻿@{
-    ViewData["Title"] = "Início - SIRESP";
-}
+﻿@model RessonanciaMagnetica;
 
-<div class="container mt-5">
-    <div class="text-center mb-5">
-        <h1 class="fw-bold text-primary">Bem-vindo ao SirespFacil</h1>
-        <p class="lead text-secondary">Sistema de Registro e Gestão de Exames de Saúde</p>
+
+<form asp-action="SalvarFormulario" method="post">
+    <h3>Identificação do Serviço Solicitante</h3>
+    <div>
+        <label>Unidade</label>
+        <input asp-for="Solicitante.Unidade" class="form-control" />
+    </div>
+    <div>
+        <label>Telefone</label>
+        <input asp-for="Solicitante.Unidade.NIR" class="form-control" />
+    </div>
+    <div>
+        <label>Médico Solicitante</label>
+        <input asp-for="Solicitante.Medico.Nome" class="form-control" />
+    </div>
+    <div>
+        <label>CRM</label>
+        <input asp-for="Solicitante.Medico.CRM" class="form-control" />
     </div>
 
-    <div class="row g-4">
-        <!-- Card de Cadastro -->
-        <div class="col-md-4">
-            <div class="card shadow-card border-0 rounded-4 h-100">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-file-earmark-medical text-primary" style="font-size: 2.5rem;"></i>
-                    <h5 class="mt-3 fw-bold">Cadastrar Exame</h5>
-                    <p class="text-muted">Registre novos exames de pacientes de forma rápida e organizada.</p>
-                    <a href="@Url.Action("CadastrarExame", "Home")" class="btn btn-primary mt-2 px-4 rounded-3">Acessar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card de Lista -->
-        <div class="col-md-4">
-            <div class="card shadow-card border-0 rounded-4 h-100">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-list-check text-primary" style="font-size: 2.5rem;"></i>
-                    <h5 class="mt-3 fw-bold">Exames Cadastrados</h5>
-                    <p class="text-muted">Visualize os exames já cadastrados e acompanhe seu histórico.</p>
-                    <a href="@Url.Action("ListaExames", "Home")" class="btn btn-primary mt-2 px-4 rounded-3">Consultar</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card de Relatórios -->
-        <div class="col-md-4">
-            <div class="card shadow-card border-0 rounded-4 h-100">
-                <div class="card-body text-center p-4">
-                    <i class="bi bi-bar-chart-line text-primary" style="font-size: 2.5rem;"></i>
-                    <h5 class="mt-3 fw-bold">Relatórios</h5>
-                    <p class="text-muted">Gere relatórios detalhados e obtenha insights sobre os exames.</p>
-                    <a href="@Url.Action("Relatorios", "Home")" class="btn btn-primary mt-2 px-4 rounded-3">Visualizar</a>
-                </div>
-            </div>
-        </div>
+    <h3>Identificação do Paciente</h3>
+    <div>
+        <label>Nome</label>
+        <input asp-for="Paciente.Nome" class="form-control" />
     </div>
-</div>
+    <div>
+        <label>Código SIRES</label>
+        <input asp-for="Paciente.CodigoSIRESP" class="form-control" />
+    </div>
+    <div>
+        <label>Data de Nascimento</label>
+        <input asp-for="Paciente.DataNascimento" type="date" class="form-control" />
+    </div>
+    <div>
+        <label>Sexo</label>
+        <select asp-for="Paciente.Sexo" class="form-control">
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+        </select>
+    </div>
+    <div>
+        <label>Peso (kg)</label>
+        <input asp-for="Peso" type="number" class="form-control" />
+    </div>
+    <div>
+        <label>Altura (m)</label>
+        <input asp-for="Altura" type="number" class="form-control" step="0.01" />
+    </div>
+    <div>
+        <label>Circunferência Abdominal (m)</label>
+        <input asp-for="CircunferenciaAbdominal" type="number" class="form-control" step="0.01" />
+    </div>
+    <div>
+        <label>Ureia</label>
+        <input asp-for="ValorUreia" type="number" class="form-control" step="0.01" />
+    </div>
+    <div>
+        <label>Creatinina</label>
+        <input asp-for="ValorCreatinina" type="number" class="form-control" step="0.01" />
+    </div>
 
-<style>
-    :root {
-        --sir-blue: #003366;
-        --sir-blue-dark: #002244;
-        --sir-gray-dark: #333333;
-        --sir-gray-light: #F2F2F2;
-    }
+    <h3>Exames de Imagem Realizados</h3>
+    <div>
+        <input = "1" type="radio" /> Raio-X
+        <input = "2" type="radio" /> Ultrassonografia
+        <input = "3" type="radio" /> Tomografia
+        <input = "4" type="radio" /> Ressonância
+    </div>
+     <div>
+        <label>Outro</label>
+        <input asp-for="OutroExame" class="form-control" />
+    </div>
 
-    body {
-        background-color: var(--sir-gray-light);
-    }
+    <h3>Exame Solicitado</h3>
+    <div>
+        <label>Exame</label>
+        <input asp-for="NomeExame" class="form-control" />
+    </div>
+    <div>
+        <label>Sedação</label>
+        <input asp-for="Sedacao" type="checkbox" /> Sim
+    </div>
+    <div>
+        <label>Classificação ASA</label>
+        <select asp-for="ClassificacaoASA" class="form-control">
+            <option>I</option>
+            <option>II</option>
+            <option>III</option>
+            <option>IV</option>
+        </select>
+    </div>
+    <div>
+        <label>Lateralidade</label>
+        <select asp-for="Lateralidade" class="form-control">
+            <option value="E">Esquerda</option>
+            <option value="D">Direita</option>
+            <option value="NA">Não se aplica</option>
+        </select>
+    </div>
 
-    h1 {
-        color: var(--sir-blue);
-    }
+    <h3>Justificativa</h3>
+    <div>
+        <label>Conduta Diagnóstica</label>
+        <input asp-for="CondutaDiagnostica" class="form-control" />
+    </div>
+    <div>
+        <label>Conduta Terapêutica</label>
+        <input asp-for="CondutaTerapeutica" class="form-control" />
+    </div>
+    <div>
+        <label>Descrição do Diagnóstico</label>
+        <textarea asp-for="DescricaoDiagnostico" class="form-control"></textarea>
+    </div>
+    <div>
+        <label>CID Principal</label>
+        <input asp-for="CIDPrincipal" class="form-control" />
+    </div>
+    <div>
+        <label>CID Secundário</label>
+        <input asp-for="CIDSecundario" class="form-control" />
+    </div>
+    <div>
+        <label>CID Associado</label>
+        <input asp-for="CIDAssociado" class="form-control" />
+    </div>
 
-    .card {
-        background: #ffffff;
-        transition: transform 0.2s ease-in-out;
-    }
+    <h3>Implantes</h3>
+    <div>
+        <label>Tempo de Uso</label>
+        <input asp-for="TempoUso" class="form-control" />
+    </div>
+    <div>
+        <label>Material</label>
+        <input asp-for="Material" class="form-control" />
+    </div>
+    <div>
+        <label>Localização</label>
+        <input asp-for="Localizacao" class="form-control" />
+    </div> 
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    <h3>Assinatura</h3>
+    <div>
+        <label>Data</label>
+        <input asp-for="Data" type="date" class="form-control" />
+    </div>
 
-    .btn-primary {
-        background-color: var(--sir-blue);
-        border-color: var(--sir-blue-dark);
-    }
-
-        .btn-primary:hover {
-            background-color: var(--sir-blue-dark);
-        }
-
-    .text-primary {
-        color: var(--sir-blue) !important;
-    }
-</style>
-
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>

@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "jJ4GBa9v/Y4=",
   "success": true,
   "projectFilePath": "C:\\Users\\vinicius\\Documents\\Faculdade\\4o_bim\\FabricaDeProjetos\\projeto\\SirespFacil\\SirespFacil.csproj",
@@ -54,5 +55,11 @@
     "C:\\Users\\vinicius\\.nuget\\packages\\system.text.json\\9.0.9\\system.text.json.9.0.9.nupkg.sha512",
     "C:\\Users\\vinicius\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
+=======
+  "dgSpecHash": "2ML0eAhqEkQ=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Duda\\Documents\\GitHub\\sirespfacil\\SirespFacil.csproj",
+  "expectedPackageFiles": [],
+>>>>>>> 72a546de9a298893749f4a125a7e17610510bba7
   "logs": []
 }
