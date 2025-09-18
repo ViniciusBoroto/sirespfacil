@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72a546de9a298893749f4a125a7e17610510bba7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92ddb2acf5f3ea073ecac2da0bec3163e9ed732b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
