@@ -4,7 +4,7 @@
     {
         public CriterioDeAutorizacao CriterioDeAutorizacao { get; set; }
         public Solicitante Solicitante { get; set; }
-        public Paciente Paciente{ get; set; }
+        public Paciente Paciente { get; set; }
         public double Peso { get; set; }
         public double Altura { get; set; }
         public double CircunferenciaAbdominal { get; set; }
