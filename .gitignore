@@ -3,3 +3,4 @@ obj
 obj/*
 obj/Debug
 obj/Debug/net8.0/SirespFacil.AssemblyInfo.cs
+bin
