@@ -7,5 +7,7 @@
         public string CodigoSIRESP { get; set; }
         public DateOnly DataNascimento { get; set; }
         public Sexo Sexo { get; set; }
+
+        public int Idade { get; set; }
     }
 }
