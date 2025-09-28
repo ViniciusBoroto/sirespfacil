@@ -1,354 +1,192 @@
 ﻿@using SirespFacil.Models.ViewModels
-@model RessonanciaMagneticaViewModel;
+@model RessonanciaMagneticaViewModel
 
 
-<form asp-action="SalvarFormulario" method="post">
-    <h3>Identificação do Serviço Solicitante</h3>
-    <div>
-        <label>Unidade</label>
-        <input asp-for="Solicitante.Unidade" class="form-control" />
-    </div>
-    <div>
-        <label>Telefone</label>
-        <input asp-for="Solicitante.Unidade.NIR" class="form-control" />
-    </div>
-    <div>
-        <label>Médico Solicitante</label>
-        <input asp-for="Solicitante.Medico.Nome" class="form-control" />
-    </div>
-    <div>
-        <label>CRM</label>
-        <input asp-for="Solicitante.Medico.CRM" class="form-control" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Ressonância Magnética</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link href="~/css/formulario.css" rel="stylesheet">
+</head>
+<body>
+
+    
+    <div class="form-container fade-in">
+        <div class="progress-indicator"></div>
+        
+        <div class="form-header">
+            <h1><i class="fas fa-microscope me-3"></i>Ressonância Magnética</h1>
+            <p>Secretaria de Estado da Saúde - Coordenadoria de Regiões de Saúde - Grupo de Regulação</p>
+        </div>
+        
+        <div class="form-content">
+            <form asp-action="SalvarFormulario" method="post" enctype="multipart/form-data">
+                
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-hospital"></i> Identificação do Serviço Solicitante</h2>
+                    <div class="form-grid">
+                        <div class="form-group"><label asp-for="Solicitante.Unidade" class="form-label">Unidade:</label><input asp-for="Solicitante.Unidade" type="text" class="form-control" placeholder="Nome da unidade solicitante"></div>
+                        <div class="form-group"><label asp-for="Solicitante.Unidade.NIR" class="form-label">Telefone NIR:</label><input asp-for="Solicitante.Unidade.NIR" type="tel" class="form-control" placeholder="(11) 99999-9999"></div>
+                        <div class="form-group"><label asp-for="Solicitante.Medico.Nome" class="form-label">Médico Solicitante:</label><input asp-for="Solicitante.Medico.Nome" type="text" class="form-control" placeholder="Nome do médico"></div>
+                        <div class="form-group"><label asp-for="Solicitante.Medico.CRM" class="form-label">CRM:</label><input asp-for="Solicitante.Medico.CRM" type="text" class="form-control" placeholder="Número do CRM"></div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Identificação do Paciente</h2>
+                    <div class="form-grid">
+                        <div class="form-group full-width-field"><label asp-for="Paciente.Nome" class="form-label">Nome Completo:</label><input asp-for="Paciente.Nome" type="text" class="form-control" placeholder="Nome completo do paciente"></div>
+                        <div class="form-group"><label asp-for="Paciente.CodigoSIRESP" class="form-label">Código SIRESP:</label><input asp-for="Paciente.CodigoSIRESP" type="text" class="form-control" placeholder="Código SIRESP"></div>
+                        <div class="form-group"><label asp-for="Paciente.DataNascimento" class="form-label">Data de Nascimento:</label><input asp-for="Paciente.DataNascimento" type="date" class="form-control"></div>
+                        <div class="form-group"><label asp-for="Paciente.Idade" class="form-label">Idade:</label><input asp-for="Paciente.Idade" type="number" class="form-control" placeholder="Anos"></div>
+                        <div class="form-group">
+                            <label asp-for="Paciente.Sexo" class="form-label">Sexo:</label>
+                            <select asp-for="Paciente.Sexo" class="form-select"><option value="">Selecione...</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
+                        </div>
+                        <div class="form-group"><label asp-for="Peso" class="form-label">Peso (Máx: 170kg):</label><input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="kg"></div>
+                        <div class="form-group"><label asp-for="Altura" class="form-label">Altura:</label><input asp-for="Altura" type="number" step="0.01" class="form-control" placeholder="cm"></div>
+                        <div class="form-group"><label asp-for="CircunferenciaAbdominal" class="form-label">Circunferência Abdominal (Máx: 136cm):</label><input asp-for="CircunferenciaAbdominal" type="number" step="0.01" class="form-control" placeholder="cm"></div>
+                        <div class="form-group"><label asp-for="ValorUreia" class="form-label">UREIA:</label><input asp-for="ValorUreia" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
+                        <div class="form-group"><label asp-for="ValorCreatinina" class="form-label">CREATININA:</label><input asp-for="ValorCreatinina" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-images"></i> Exames de Imagem Já Realizados</h2>
+                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExameRealizado"><i class="fas fa-plus"></i> Adicionar Exame Realizado</button>
+                    <div id="listaExamesRealizados"></div>
+                    <div id="inputsHiddenExamesRealizados"></div>
+                    <div class="form-group full-width-field mt-4">
+                        <label asp-for="Motivo" class="form-label">Motivo da solicitação da ressonância (quando insuficiência dos exames anteriores):</label>
+                        <textarea asp-for="Motivo" class="form-control" rows="3" placeholder="Descreva o motivo da solicitação..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-stethoscope"></i> Exame Solicitado (Conforme Nomenclatura SESSP)</h2>
+                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExame"><i class="fas fa-plus"></i> Adicionar Exame Solicitado</button>
+                    <div id="listaExames"></div>
+                    <div id="inputsHiddenExames"></div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado</h2>
+                    <div class="form-group">
+                        <label class="form-label">Tipo de Conduta:</label>
+                        <div class="checkbox-group">
+                            <div class="form-check-custom">
+                                <input type="checkbox" id="condutaDiagnostica" name="Conduta" value="Diagnostica">
+                                <label for="condutaDiagnostica">Conduta Diagnóstica</label>
+                            </div>
+                            <div class="form-check-custom">
+                                <input type="checkbox" id="condutaTerapeutica" name="Conduta" value="Terapeutica">
+                                <label for="condutaTerapeutica">Conduta Terapêutica</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid mt-4">
+                        <div class="form-group full-width-field">
+                            <label asp-for="DescricaoDiagnostico" class="form-label">Descrição do Diagnóstico:</label>
+                            <textarea asp-for="DescricaoDiagnostico" class="form-control" rows="3" placeholder="Descreva o diagnóstico detalhadamente..."></textarea>
+                        </div>
+                        <div class="form-group"><label asp-for="CIDPrincipal" class="form-label">CID Principal:</label><input asp-for="CIDPrincipal" type="text" class="form-control" placeholder="Ex: M79.9"></div>
+                        <div class="form-group"><label asp-for="CIDSecundario" class="form-label">CID Secundário:</label><input asp-for="CIDSecundario" type="text" class="form-control" placeholder="Ex: M79.9"></div>
+                        <div class="form-group"><label asp-for="CIDCausasAssociadas" class="form-label">CID Causas Associadas:</label><input asp-for="CIDCausasAssociadas" type="text" class="form-control" placeholder="Ex: M79.9"></div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-cog"></i> Implantes Metálicos e Outros</h2>
+                    <p class="text-document mb-3">Indicar a presença de dispositivos (metálicos e outros)</p>
+                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalImplante"><i class="fas fa-plus"></i> Adicionar Implante</button>
+                    <div id="listaImplantes"></div>
+                    <div id="inputsHidden"></div>
+                </div>
+
+                <div class="section-card">
+                    <h2 class="section-title"><i class="fas fa-signature"></i> Data e Assinatura</h2>
+                    <div class="form-grid">
+                        <div class="form-group"><label asp-for="Data" class="form-label">Data:</label><input asp-for="Data" type="date" class="form-control"></div>
+                        <div class="form-group full-width-field"><p class="text-document mt-3">Assinatura e carimbo do médico solicitante</p></div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-5">
+                    <button type="submit" class="btn-modern btn-primary-modern"><i class="fas fa-save"></i> Salvar Formulário</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <h3>Identificação do Paciente</h3>
-    <div>
-        <label>Nome</label>
-        <input asp-for="Paciente.Nome" class="form-control" />
-    </div>
-    <div>
-        <label>Código SIRES</label>
-        <input asp-for="Paciente.CodigoSIRESP" class="form-control" />
-    </div>
-    <div>
-        <label>Data de Nascimento</label>
-        <input asp-for="Paciente.DataNascimento" type="date" class="form-control" />
-    </div>
-    <div>
-        <label>Sexo</label>
-        <select asp-for="Paciente.Sexo" class="form-control">
-            <option value="M">Masculino</option>
-            <option value="F">Feminino</option>
-        </select>
-    </div>
-    <div>
-        <label>Peso (kg)</label>
-        <input asp-for="Peso" type="number" class="form-control" />
-    </div>
-    <div>
-        <label>Altura (m)</label>
-        <input asp-for="Altura" type="number" class="form-control" step="0.01" />
-    </div>
-    <div>
-        <label>Circunferência Abdominal (m)</label>
-        <input asp-for="CircunferenciaAbdominal" type="number" class="form-control" step="0.01" />
-    </div>
-    <div>
-        <label>Ureia</label>
-        <input asp-for="ValorUreia" type="number" class="form-control" step="0.01" />
-    </div>
-    <div>
-        <label>Creatinina</label>
-        <input asp-for="ValorCreatinina" type="number" class="form-control" step="0.01" />
-    </div>
-
-    <h3>Exames de Imagem Realizados</h3>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExame">
-        Adicionar Exame
-    </button>
-
-    <div id="exames-lista" class="mt-3"></div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalExame" tabindex="-1">
-        <div class="modal-dialog">
+    <div class="modal fade" id="modalExameRealizado" tabindex="-1">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Adicionar Exame</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title"><i class="fas fa-images me-2"></i>Adicionar Exame Realizado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Tipo de Exame</label>
-                        <select class="form-control" id="tipoExame">
-                            <option value="RaioX">Raio-X</option>
-                            <option value="Tomografia">Tomografia</option>
-                            <option value="Ultrassonografia">Ultrassonografia</option>
-                            <option value="Ressonancia">Ressonância</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label>Anexar arquivos</label>
-                        <input type="file" id="arquivosExame" class="form-control" multiple />
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Exame:</label>
+                            <select class="form-select" id="tipoExameRealizado">
+                                <option value="">Selecione o tipo...</option>
+                                <option value="RaioX">RAIO X</option>
+                                <option value="Ultrassonografia">Ultrassonografia</option>
+                                <option value="Tomografia">Tomografia</option>
+                                <option value="Ressonancia">Ressonância - indicar a data</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Data do Exame:</label>
+                            <input type="date" id="dataExameRealizado" class="form-control">
+                        </div>
+                        <div class="form-group full-width-field">
+                            <label class="form-label">Laudo (opcional):</label>
+                            <input type="file" id="laudoExameRealizado" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="adicionarExame()">Adicionar</button>
+                    <button type="button" class="btn-modern" onclick="adicionarExameRealizado()">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-   
-    @section Scripts {
-        <script src="~/js/exames.js"></script>
-    }
-
-    <div class="form-group">
-        <label asp-for="OutroExame"></label>
-        <input asp-for="OutroExame" class="form-control" />
-        <span asp-validation-for="OutroExame" class="text-danger"></span>
-    </div>
-    <h3>Exames Solicitados</h3>
-    <script src="~/js/exames.js"></script>
-    
-    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalExame">
-        Adicionar Exame
-    </button>
-
-    <div id="listaExames"></div>
-    <form asp-action="Cadastro" method="post">
-        <div id="inputsHiddenExames"></div>
-        <button type="submit" class="btn btn-primary mt-3">Salvar Paciente</button>
-    </form>
 
     <div class="modal fade" id="modalExame" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Adicionar Exame</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <h5 class="modal-title"><i class="fas fa-stethoscope me-2"></i>Adicionar Exame Solicitado</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label>Exame</label>
-                        <input type="text" id="exame" class="form-control" />
-                    </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" id="sedacao" class="form-check-input" />
-                        <label class="form-check-label" for="sedacao">Sedação</label>
-                    </div>
-                    <div class="mb-3">
-                        <label>Classificação ASA</label>
-                        <select id="classificacaoAsa" class="form-control">
-                            <option value="">Selecione...</option>
-                            <option value="I">I</option>
-                            <option value="II">II</option>
-                            <option value="III">III</option>
-                            <option value="IV">IV</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label>Lateralidade</label>
-                        <select id="lateralidade" class="form-control">
-                            <option value="">Selecione...</option>
-                            <option value="E">Esquerda</option>
-                            <option value="D">Direita</option>
-                            <option value="NA">Não se aplica</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="adicionarExame()">Adicionar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h3>Justificativa</h3>
-    <div>
-        <label asp-for="Conduta.Nome">Conduta Diagnóstica</label>
-        <input asp-for="Conduta.Nome" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="Justificativa.Nome">Conduta Terapêutica</label>
-        <input asp-for="Justificativa.Nome" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="DescricaoDiagnostico"></label>
-        <textarea asp-for="DescricaoDiagnostico" class="form-control"></textarea>
-    </div>
-    <div>
-        <label asp-for="CIDPrincipal"></label>
-        <input asp-for="CIDPrincipal" class="form-control" />
-    </div>
-
-<form asp-action="SalvarFormulario" method="post">
-    <h2>Identificação do Serviço Solicitante</h2>
-    <div>
-        <label asp-for="Solicitante.Unidade">Unidade:</label>
-        <input asp-for="Solicitante.Unidade" class="form-control" />
-    </div>
-        <div>
-            <label asp-for="Solicitante.Unidade.NIR">NIR:</label>
-            <input asp-for="Solicitante.Unidade.NIR" class="form-control" />
-            <span asp-validation-for="Solicitante.Unidade.NIR" class="text-danger"></span>
-        </div>
-    <div>
-        <label asp-for="Solicitante.Medico.Nome">Médico Solicitante:</label>
-        <input asp-for="Solicitante.Medico.Nome" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="Solicitante.Medico.CRM">CRM:</label>
-        <input asp-for="Solicitante.Medico.CRM" class="form-control" />
-    </div>
-
-    <hr/>
-
-    <h2>Identificação do Paciente</h2>
-    <div>
-        <label asp-for="Paciente.Nome">Nome:</label>
-        <input asp-for="Paciente.Nome" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="Paciente.CodigoSIRESP">Código SIRESP:</label>
-        <input asp-for="Paciente.CodigoSIRESP" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="Paciente.DataNascimento">Data de Nascimento:</label>
-        <input asp-for="Paciente.DataNascimento" type="date" class="form-control" />
-    </div>
-        <div>
-            <label asp-for="Paciente.Idade">Idade:</label>
-            <input asp-for="Paciente.Idade" type="number" class="form-control" />
-            <span asp-validation-for="Paciente.Idade" class="text-danger"></span>
-        </div>
-    <div>
-        <label asp-for="Paciente.Sexo">Sexo:</label>
-        <select asp-for="Paciente.Sexo" class="form-control">
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino">Feminino</option>
-        </select>
-    </div>
-    <div>
-        <label asp-for="Peso">Peso (Max.: 170kg):</label>
-        <input asp-for="Peso" type="number" step="0.01" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="Altura">Altura:</label>
-        <input asp-for="Altura" type="number" step="0.01" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="CircunferenciaAbdominal">Circunferência Abdominal (Máx.: 1,36cm):</label>
-        <input asp-for="CircunferenciaAbdominal" type="number" step="0.01" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="ValorUreia">Valor conforme exame laboratorial UREIA:</label>
-        <input asp-for="ValorUreia" type="number" step="0.01" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="ValorCreatinina">Valor conforme exame laboratorial CREATININA:</label>
-        <input asp-for="ValorCreatinina" type="number" step="0.01" class="form-control" />
-    </div>
-    
-    <hr/>
-
-        <h3>Exames de Imagem Já Realizados (Anexar Laudo)</h3>
-        <script src="~/js/examesRealizados.js"></script>
-
-        <!-- Botão para abrir modal -->
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalExameRealizado">
-            Adicionar Exame Realizado
-        </button>
-
-        <!-- Container para pré-visualização -->
-        <div id="listaExamesRealizados"></div>
-
-        <!-- Formulário -->
-        <form asp-action="Cadastro" method="post" enctype="multipart/form-data">
-            <div id="inputsHiddenExamesRealizados"></div>
-
-            <div class="mb-3">
-                <label asp-for="Motivo">Indicar o motivo da solicitação:</label>
-                <textarea asp-for="Motivo" class="form-control"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary mt-3">Salvar Paciente</button>
-        </form>
-
-        <!-- Modal -->
-        <div class="modal fade" id="modalExameRealizado" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Adicionar Exame Realizado</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label>Tipo de Exame</label>
-                            <input type="text" id="tipoExameRealizado" class="form-control" />
+                    <div class="form-grid">
+                        <div class="form-group full-width-field">
+                            <label class="form-label">Exame:</label>
+                            <input type="text" id="exame" class="form-control" placeholder="Ex: RM Crânio">
                         </div>
-                        <div class="mb-3">
-                            <label>Data do Exame</label>
-                            <input type="date" id="dataExameRealizado" class="form-control" />
+                        <div class="form-group">
+                            <label class="form-label">Sedação:</label>
+                            <select id="sedacao" class="form-select">
+                                <option value="NAO">NÃO</option>
+                                <option value="SIM">SIM</option>
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label>Laudo (opcional)</label>
-                            <input type="file" id="laudoExameRealizado" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="adicionarExameRealizado()">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    <hr/>
-
-        <h3>Exames Solicitados</h3>
-        <script src="~/js/exames.js"></script>
-
-
-        <!-- Botão para abrir modal -->
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalExame">
-            Adicionar Exame
-        </button>
-
-        <!-- Container para pré-visualizar os exames adicionados -->
-        <div id="listaExames"></div>
-
-        <!-- Formulário -->
-        <form asp-action="Cadastro" method="post">
-            <div id="inputsHiddenExames"></div>
-            <button type="submit" class="btn btn-primary mt-3">Salvar Paciente</button>
-        </form>
-
-        <!-- Modal -->
-        <div class="modal fade" id="modalExame" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Adicionar Exame</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label>Exame</label>
-                            <input type="text" id="exame" class="form-control" />
-                        </div>
-                        <div class="form-check mb-3">
-                            <input type="checkbox" id="sedacao" class="form-check-input" />
-                            <label class="form-check-label" for="sedacao">Sedação</label>
-                        </div>
-                        <div class="mb-3">
-                            <label>Classificação ASA</label>
-                            <select id="classificacaoAsa" class="form-control">
+                        <div class="form-group">
+                            <label class="form-label">Classificação ASA:</label>
+                            <select id="classificacaoAsa" class="form-select">
                                 <option value="">Selecione...</option>
                                 <option value="I">I</option>
                                 <option value="II">II</option>
@@ -356,131 +194,66 @@
                                 <option value="IV">IV</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label>Lateralidade</label>
-                            <select id="lateralidade" class="form-control">
-                                <option value="">Selecione...</option>
-                                <option value="E">Esquerda</option>
-                                <option value="D">Direita</option>
-                                <option value="NA">Não se aplica</option>
+                        <div class="form-group">
+                            <label class="form-label">Lateralidade:</label>
+                            <select id="lateralidade" class="form-select">
+                                <option value="NA">NÃO SE APLICA</option>
+                                <option value="E">ESQUERDA</option>
+                                <option value="D">DIREITA</option>
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="adicionarExame()">Adicionar</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn-modern" onclick="adicionarExame()">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
                 </div>
             </div>
         </div>
-    <hr/>
-
-    <h2>Justificativa do Exame Solicitado</h2>
-    <div>
-        <label asp-for="Justificativa.Nome">Justificativa:</label>
-        <input asp-for="Justificativa.Nome" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="DescricaoDiagnostico">Descrição do Diagnóstico:</label>
-        <textarea asp-for="DescricaoDiagnostico" class="form-control"></textarea>
-    </div>
-    <div>
-        <label asp-for="CIDPrincipal">CID Principal:</label>
-        <input asp-for="CIDPrincipal" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="CIDSecundario">CID Secundário:</label>
-        <input asp-for="CIDSecundario" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="CIDCausasAssociadas">CID Causas Associadas:</label>
-        <input asp-for="CIDCausasAssociadas" class="form-control" />
     </div>
 
-    <hr/>
-
-        <h3>Implantes</h3>
-
-
-        <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalImplante">
-            Adicionar Implante
-        </button>
-
-
-        <div id="listaImplantes"></div>
-
-        <form asp-action="Cadastro" method="post">
-            <div id="inputsHidden"></div>
-            <button type="submit" class="btn btn-primary mt-3">Salvar Paciente</button>
-        </form>
-
-        <!-- Modal para adicionar implante -->
-        <div class="modal fade" id="modalImplante" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Adicionar Implante</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label>Dispositivo</label>
-                            <input type="text" id="dispositivo" class="form-control" />
+    <div class="modal fade" id="modalImplante" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-cog me-2"></i>Adicionar Implante</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Dispositivo (Metálicos e Outros):</label>
+                            <input type="text" id="dispositivo" class="form-control" placeholder="Ex: Marca-passo">
                         </div>
-                        <div class="mb-3">
-                            <label>Tempo de Uso</label>
-                            <input type="text" id="tempoDeUso" class="form-control" />
+                        <div class="form-group">
+                            <label class="form-label">Tempo de Uso:</label>
+                            <input type="text" id="tempoDeUso" class="form-control" placeholder="Ex: 2 anos">
                         </div>
-                        <div class="mb-3">
-                            <label>Material</label>
-                            <input type="text" id="material" class="form-control" />
+                        <div class="form-group">
+                            <label class="form-label">Material:</label>
+                            <input type="text" id="material" class="form-control" placeholder="Ex: Titânio">
                         </div>
-                        <div class="mb-3">
-                            <label>Localização</label>
-                            <input type="text" id="localizacao" class="form-control" />
+                        <div class="form-group">
+                            <label class="form-label">Localização:</label>
+                            <input type="text" id="localizacao" class="form-control" placeholder="Ex: Região torácica">
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-primary" onclick="adicionarImplante()">Adicionar</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn-modern" onclick="adicionarImplante()">
+                        <i class="fas fa-plus"></i> Adicionar
+                    </button>
                 </div>
             </div>
         </div>
-
-    <hr/>
-
-    <h2>Assinatura e Carimbo do Médico Solicitante</h2>
-    <div>
-        <label asp-for="Data">Data:</label>
-        <input asp-for="Data" type="date" class="form-control" />
-    </div>
-    <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Salvar Formulário</button>
-    </div>
-</form>
-    <div>
-        <label>CID Secundário</label>
-        <input asp-for="CIDSecundario" class="form-control" />
-    </div>
-    <div>
-        <label asp-for="CIDCausasAssociadas">CID Associado</label>
-        <input asp-for="CIDCausasAssociadas" class="form-control" />
-        <span asp-validation-for="CIDCausasAssociadas" class="text-danger"></span>
     </div>
 
-    @{
-    ViewData["Title"] = "Cadastro de Implantes";
-}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/examesRealizados.js"></script>
+    <script src="~/js/exames.js"></script>
     <script src="~/js/implantes.js"></script>
-
-
-    <h3>Assinatura</h3>
-    <div>
-        <label>Data</label>
-        <input asp-for="Data" type="date" class="form-control" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Salvar</button> 
-</form>
- 
+</body>
+</html>

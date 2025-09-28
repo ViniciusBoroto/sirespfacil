@@ -1,0 +1,157 @@
+/* createExam.css - Estilo  */
+
+:root {
+    --sir-blue: #003366;
+    --sir-blue-dark: #002244;
+    --sir-gray-dark: #333333;
+    --sir-gray-light: #F2F2F2;
+
+    /* Herdando estilo moderno */
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --border-color: #e2e8f0;
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --gradient-primary: linear-gradient(135deg, #003366, #0055aa);
+}
+
+body {
+    background: linear-gradient(135deg, #002244, #004488);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--sir-gray-dark);
+    min-height: 100vh;
+    margin: 0;
+    padding: 10px;
+}
+
+/* Container geral */
+.form-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+/* Cabeçalho */
+.form-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+}
+
+.form-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Conteúdo */
+.form-content {
+    padding: 40px 30px;
+}
+
+/* Cartões de seção */
+.section-card {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+}
+
+.section-card:hover {
+    box-shadow: 0 8px 25px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+}
+
+/* Títulos */
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--sir-blue);
+    margin-bottom: 20px;
+    border-bottom: 3px solid #e0e7ff;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+/* Grid de formulário */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Campos */
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--sir-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.15);
+    background: white;
+    outline: none;
+}
+
+/* Botões */
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 51, 102, 0.4);
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .form-content {
+        padding: 20px 15px;
+    }
+
+    .section-card {
+        padding: 20px 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}

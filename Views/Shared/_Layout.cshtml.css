@@ -1,48 +1,178 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* ARQUIVO DE ESTILO ÚNICO - site.css
+*/
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+:root {
+    --sir-blue: #003366;
+    --sir-blue-dark: #002244;
+    --primary-color: #2563eb; 
+    --card-background: #ffffff;
+    --border-color: #e2e8f0;
+    --text-primary: #1e293b;
+    --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --gradient-primary: linear-gradient(135deg, var(--sir-blue), #0055aa);
 }
 
-a {
-  color: #0077cc;
+body {
+    background: linear-gradient(135deg, var(--sir-blue-dark) 0%, #004488 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+/* NAVBAR */
+.navbar-modern {
+    background-color: var(--sir-blue); /* COR DE FUNDO SÓLIDA */
+    padding: 0.8rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* SOMBRA PARA DAR PROFUNDIDADE */
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.navbar-modern .navbar-brand,
+.navbar-modern .nav-link {
+    color: #fff !important;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.navbar-modern .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.navbar-modern .nav-link:hover,
+.navbar-modern .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff !important;
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+/* Container principal que engloba o conteúdo */
+.content-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 2rem auto; 
+    background: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+/* Cabeçalho do container */
+.content-header {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+    position: relative;
+}
+
+.content-header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.content-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Corpo do container */
+.content-body {
+    padding: 40px 30px;
+}
+
+/* Cartões de seção internos */
+.section-card {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+}
+
+.section-card:hover {
+    box-shadow: 0 8px 25px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+}
+
+.section-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Títulos das seções */
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--sir-blue);
+    margin-bottom: 25px;
+    border-bottom: 3px solid #e0e7ff;
+    padding-bottom: 15px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Formulários */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.form-control,
+.form-select {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    background: #f8fafc;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    background: white;
+    outline: none;
+}
+
+/* Botões */
+.btn-primary-modern {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    cursor: pointer;
+}
+
+.btn-primary-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Rodapé Moderno */
+.footer-modern {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto; 
+    color: rgba(255, 255, 255, 0.6);
 }
