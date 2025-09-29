@@ -2,7 +2,7 @@
 {
     public class CriterioDeAutorizacao
     {
-        public string Arquivo { get; set; }
+        public string CaminhoArquivo { get; set; }
         public TipoCriterioAutorizacao Tipo { get; set; }
     }
 }

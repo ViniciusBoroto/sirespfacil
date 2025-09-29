@@ -2,7 +2,7 @@
 {
     public class RessonanciaMagneticaViewModel
     {
-        public CriterioDeAutorizacao CriterioDeAutorizacao { get; set; }
+        public CriterioDeAutorizacaoViewModel CriterioDeAutorizacao { get; set; }
         public Solicitante Solicitante { get; set; }
         public Paciente Paciente { get; set; }
         public double Peso { get; set; }
