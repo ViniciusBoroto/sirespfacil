@@ -9,5 +9,6 @@
         public Sexo Sexo { get; set; }
 
         public int Idade { get; set; }
+        public List<RessonanciaMagnetica> RessonanciaMagneticas { get; set; }
     }
 }

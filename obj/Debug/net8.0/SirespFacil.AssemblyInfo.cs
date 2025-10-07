@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f680557a0484cf36c487e2e82f66b3745626e162")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9c204b7f265a9538696f2aab9cf0f0486a30c84")]
 [assembly: System.Reflection.AssemblyProductAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SirespFacil")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

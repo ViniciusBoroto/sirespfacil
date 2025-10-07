@@ -7,5 +7,6 @@
         public TimeSpan TempoDeUso { get; set; }
         public string Material { get; set; }
         public string Localizacao { get; set; }
+        public RessonanciaMagnetica RessonanciaMagnetica { get; set; }
     }
 }

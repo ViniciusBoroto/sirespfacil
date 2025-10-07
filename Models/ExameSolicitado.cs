@@ -7,5 +7,6 @@
         public bool Sedacao { get; set; }
         public ClassificacaoAsa ClassificacaoAsa { get; set; }
         public Lateralidade Lateralidade { get; set; }
+        public RessonanciaMagnetica RessonanciaMagnetica { get; set; }
     }
 }
