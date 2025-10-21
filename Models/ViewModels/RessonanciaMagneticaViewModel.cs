@@ -2,6 +2,15 @@
 {
     public class RessonanciaMagneticaViewModel
     {
+        //props para get
+        public List<TipoCriterioAutorizacao> TiposCriterioAutorizacao { get; set; }
+        public List<TipoExame> TiposExames { get; set; }
+        public List<Lateralidade> Lateralidades { get; set; }
+        public List<Conduta> TiposCondutas { get; set; }
+        public List<Justificativa> TiposJustificativas { get; set; }
+
+
+        //props
         public CriterioDeAutorizacaoViewModel CriterioDeAutorizacao { get; set; }
         public Solicitante Solicitante { get; set; }
         public Paciente Paciente { get; set; }

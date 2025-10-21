@@ -36,6 +36,7 @@ namespace SirespFacil.Repositories
             _db.Justificativas.Add(new Justificativa { Nome = "Pós Cirúrgico" });
             _db.Justificativas.Add(new Justificativa { Nome = "Doença Vascular" });
             _db.Justificativas.Add(new Justificativa { Nome = "Doenças Aorta/Vasos" });
+            _db.SaveChanges();
         }
 
         public IEnumerable<RessonanciaMagnetica> GetAll()
@@ -51,7 +52,8 @@ namespace SirespFacil.Repositories
         public void Add(RessonanciaMagnetica ressonancia)
         {
 
-            _db.Attach(ressonancia.CriterioDeAutorizacao!.Tipo);
+            if (ressonancia.CriterioDeAutorizacao is not null)
+                _db.Attach(ressonancia.CriterioDeAutorizacao!.Tipo);
             if (ressonancia.Solicitante?.Id != 0)
                 _db.Attach(ressonancia.Solicitante!);
             if (ressonancia.Paciente.Id != 0)
