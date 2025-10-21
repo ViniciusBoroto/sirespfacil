@@ -2,6 +2,7 @@
 {
     // Data/AppDbContext.cs
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Hosting;
     using SirespFacil.Models;
 
     public class AppDbContext : DbContext
@@ -27,5 +28,29 @@
         public DbSet<TipoCriterioAutorizacao> TiposCriterioAutorizacao { get; set; }
         public DbSet<TipoExame> TiposExames { get; set; }
         public DbSet<Unidade> Unidades { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<RessonanciaMagnetica>()
+        //        .HasOne(r => r.CriterioDeAutorizacao)
+        //        .WithOne(c => c.RessonanciaMagnetica)
+        //        .HasForeignKey<RessonanciaMagnetica>(r => r.CriterioDeAutorizacaoId);
+
+
+        //    modelBuilder.Entity<RessonanciaMagnetica>()
+        //        .HasOne(r => r.Solicitante)
+        //        .WithMany(s => s.RessonanciaMagneticas)
+        //        .HasForeignKey(r => r.SolicitanteId);
+
+
+        //    modelBuilder.Entity<RessonanciaMagnetica>()
+        //        .HasOne(r => r.Paciente)
+        //        .WithMany(p => p.RessonanciaMagneticas)
+        //        .HasForeignKey(r => r.PacienteId);
+
+
+        //    // optional: base call
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }

@@ -2,9 +2,13 @@
 {
     public class RessonanciaMagnetica
     {
-        public CriterioDeAutorizacao CriterioDeAutorizacao { get; set; }
-        public Solicitante Solicitante { get; set; }
+        public int Id { get; set; }
+        public CriterioDeAutorizacao? CriterioDeAutorizacao { get; set; }
+        public int CriterioDeAutorizacaoId  {get;set;}
+        public Solicitante? Solicitante { get; set; }
+        public int? SolicitanteId {get;set;}
         public Paciente Paciente { get; set; }
+        public int PacienteId { get; set; }
         public double Peso { get; set; }
         public double Altura { get; set; }
         public double CircunferenciaAbdominal { get; set; }
@@ -14,7 +18,9 @@
         public string Motivo { get; set; }
         public List<ExameSolicitado> ExamesSolicitados { get; set; } = new List<ExameSolicitado>();
         public Conduta Conduta { get; set; }
+        public int CondutaId { get; set; }
         public Justificativa Justificativa { get; set; }
+        public int JustificativaId { get; set; }
         public string DescricaoDiagnostico { get; set; }
         public string CIDPrincipal { get; set; }
         public string CIDSecundario { get; set; }

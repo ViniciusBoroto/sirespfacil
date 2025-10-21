@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using SirespFacil.Data;
+using SirespFacil.Repositories;
+
 namespace SirespFacil
 {
     public class Program
@@ -8,6 +12,10 @@ namespace SirespFacil
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite("Data Source=app.db"));
+            builder.Services.AddScoped<RessonanciaMagneticaRepository>();
+
 
             var app = builder.Build();
 
