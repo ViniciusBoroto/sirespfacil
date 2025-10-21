@@ -2,10 +2,11 @@
 {
     public class RessonanciaMagnetica
     {
-        public CriterioDeAutorizacao CriterioDeAutorizacao { get; set; }
+        public int Id { get; set; }
+        public CriterioDeAutorizacao? CriterioDeAutorizacao { get; set; }
         public int CriterioDeAutorizacaoId  {get;set;}
-        public Solicitante Solicitante { get; set; }
-        public int SolicitanteId {get;set;}
+        public Solicitante? Solicitante { get; set; }
+        public int? SolicitanteId {get;set;}
         public Paciente Paciente { get; set; }
         public int PacienteId { get; set; }
         public double Peso { get; set; }
