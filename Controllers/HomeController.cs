@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SirespFacil.Data;
 using SirespFacil.Models;
 using SirespFacil.Models.ViewModels;
 using SirespFacil.Repositories;
@@ -11,16 +12,28 @@ namespace SirespFacil.Controllers
         public RessonanciaMagneticaRepository _ressonanciaMagneticaRepository { get; set; }
 
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger, RessonanciaMagneticaRepository ressonanciaMagneticaRepository)
+        public HomeController(ILogger<HomeController> logger, RessonanciaMagneticaRepository ressonanciaMagneticaRepository, AppDbContext db)
         {
             _ressonanciaMagneticaRepository = ressonanciaMagneticaRepository;   
             _logger = logger;
+            _db = db;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new RessonanciaMagneticaViewModel
+            {
+                TiposCriterioAutorizacao = _db.TiposCriterioAutorizacao.ToList(),
+                TiposExames = _db.TiposExames.ToList(),
+                Lateralidades = _db.Lateralidades.ToList(),
+                TiposCondutas = _db.Condutas.ToList(),
+                TiposJustificativas = _db.Justificativas.ToList()
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

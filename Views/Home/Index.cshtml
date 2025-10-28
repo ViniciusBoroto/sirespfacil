@@ -24,6 +24,12 @@
             <h1><i class="fas fa-microscope me-3"></i>Ressonância Magnética</h1>
             <p>Secretaria de Estado da Saúde - Coordenadoria de Regiões de Saúde - Grupo de Regulação</p>
         </div>
+
+        <div class="secton-card">
+            <h2 class="section-title"><i class="fas fa-stethoscope"></i> Critérios de autorização</h2>
+            <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalCriterioAutorizacao"><i class="fas fa-plus"></i> Anexar Arquivo </button>
+
+        </div>
         
         <div class="form-content">
             <form asp-action="SalvarFormulario" method="post" enctype="multipart/form-data">
@@ -76,20 +82,24 @@
                 </div>
 
                 <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado</h2>
+                    <h2 class="section-title">
+                        <i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado
+                    </h2>
+
                     <div class="form-group">
                         <label class="form-label">Tipo de Conduta:</label>
+
                         <div class="checkbox-group">
-                            <div class="form-check-custom">'
-                                <input type="checkbox" id="condutaDiagnostica" name="Conduta.Nome" value="Diagnostica">
-                                <label for="CondutaDiagnostica">Conduta Diagnóstica</label>
-                            </div>
-                            <div class="form-check-custom">
-                                <input type="checkbox" id="condutaTerapeutica" name="Conduta.Nome" value="Terapeutica">
-                                <label for="CondutaTerapeutica">Conduta Terapêutica</label>
-                            </div>
+                            @foreach (var conduta in Model.TiposCondutas)
+                            {
+                                <div class="form-check-custom">
+                                    <input type="checkbox" id="conduta_@conduta.Id" value="@conduta.Id" name="CondutasSelecionadas" />
+                                    <label for="conduta_@conduta.Id">@conduta.Nome</label>
+                                </div>
+                            }
                         </div>
                     </div>
+
                     
                     <div class="form-grid mt-4">
                         <div class="form-group full-width-field">
@@ -138,10 +148,11 @@
                             <label class="form-label">Tipo de Exame:</label>
                             <select class="form-select" id="tipoExameRealizado">
                                 <option value="">Selecione o tipo...</option>
-                                <option value="RaioX">RAIO X</option>
-                                <option value="Ultrassonografia">Ultrassonografia</option>
-                                <option value="Tomografia">Tomografia</option>
-                                <option value="Ressonancia">Ressonância - indicar a data</option>
+                                @foreach (TipoExame tipo in Model.TiposExames)
+                                {
+                                <option value="@tipo.Id">@tipo.Nome</option>
+                                }
+
                             </select>
                         </div>
                         <div class="form-group">
@@ -197,9 +208,10 @@
                         <div class="form-group">
                             <label class="form-label">Lateralidade:</label>
                             <select id="lateralidade" class="form-select">
-                                <option value="NA">NÃO SE APLICA</option>
-                                <option value="E">ESQUERDA</option>
-                                <option value="D">DIREITA</option>
+                                @foreach(Lateralidade lateralidade in Model.Lateralidades)
+                                {
+                                <option value="@lateralidade.Id">@lateralidade.Nome</option>
+                                }
                             </select>
                         </div>
                     </div>
