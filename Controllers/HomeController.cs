@@ -99,14 +99,22 @@ namespace SirespFacil.Controllers
         private string SalvarArquivo(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return string.Empty;
+                return "";
+                // Gera um nome único pra evitar conflitos
+                var nomeArquivo = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                var caminho = Path.Combine("wwwroot", "uploads", nomeArquivo);
 
-            var filePath = Path.Combine("wwwroot/uploads/files/exames", Guid.NewGuid().ToString());
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-            return filePath;
+                // Cria o diretório se não existir
+                Directory.CreateDirectory(Path.GetDirectoryName(caminho)!);
+
+                // Salva o arquivo
+                using (var stream = new FileStream(caminho, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+            // Salva o caminho no modelo
+            return Path.Combine("uploads", nomeArquivo);
         }
     }
 }
