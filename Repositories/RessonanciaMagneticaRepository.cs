@@ -51,9 +51,10 @@ namespace SirespFacil.Repositories
 
         public void Add(RessonanciaMagnetica ressonancia)
         {
-
-            if (ressonancia.CriterioDeAutorizacao is not null)
-                _db.Attach(ressonancia.CriterioDeAutorizacao!.Tipo);
+            ressonancia.CriteriosDeAutorizacao?.ForEach(ca =>
+            {
+                _db.Attach(ca.Tipo);
+            });
             if (ressonancia.Solicitante?.Id != 0)
                 _db.Attach(ressonancia.Solicitante!);
             if (ressonancia.Paciente.Id != 0)

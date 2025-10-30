@@ -52,10 +52,11 @@ namespace SirespFacil.Controllers
         public IActionResult SalvarFormulario(RessonanciaMagneticaViewModel model)
         {
             var modelDb = new RessonanciaMagnetica();
-            if (model.CriterioDeAutorizacao is not null && model.CriterioDeAutorizacao.Arquivo is not null)
+            foreach (var criterioAutorizacao in model.CriteriosDeAutorizacao)
             {
-                modelDb.CriterioDeAutorizacao = new CriterioDeAutorizacao();
-                modelDb.CriterioDeAutorizacao.CaminhoArquivo = SalvarArquivo(model.CriterioDeAutorizacao.Arquivo);
+                var critDb = new CriterioDeAutorizacao();
+                critDb.CaminhoArquivo = SalvarArquivo(criterioAutorizacao.Arquivo);
+                critDb.Tipo = criterioAutorizacao.Tipo;
             }
 
             modelDb.Solicitante = model.Solicitante;

@@ -11,7 +11,7 @@
 
 
         //props
-        public CriterioDeAutorizacaoViewModel CriterioDeAutorizacao { get; set; }
+        public List<CriterioDeAutorizacaoViewModel> CriteriosDeAutorizacao { get; set; } = new();
         public Solicitante Solicitante { get; set; }
         public Paciente Paciente { get; set; }
         public double Peso { get; set; }

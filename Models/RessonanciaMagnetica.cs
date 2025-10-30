@@ -3,8 +3,7 @@
     public class RessonanciaMagnetica
     {
         public int Id { get; set; }
-        public CriterioDeAutorizacao? CriterioDeAutorizacao { get; set; }
-        public int CriterioDeAutorizacaoId  {get;set;}
+        public List<CriterioDeAutorizacao> CriteriosDeAutorizacao { get; set; } = new();
         public Solicitante? Solicitante { get; set; }
         public int? SolicitanteId {get;set;}
         public Paciente Paciente { get; set; }
