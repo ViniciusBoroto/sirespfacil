@@ -25,9 +25,115 @@
             <p>Secretaria de Estado da Saúde - Coordenadoria de Regiões de Saúde - Grupo de Regulação</p>
         </div>
 
-        <div class="secton-card">
-            <h2 class="section-title"><i class="fas fa-stethoscope"></i> Critérios de autorização</h2>
-            <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalCriterioAutorizacao"><i class="fas fa-plus"></i> Anexar Arquivo </button>
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-file-signature"></i> Critérios de Autorização
+            </h2>
+
+            <!-- Botão para abrir o modal -->
+            <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalCriterioAutorizacao">
+                <i class="fas fa-plus"></i> Adicionar Critério de Autorização
+            </button>
+
+            <!-- Listagem dinâmica -->
+            <div id="listaCriteriosAutorizacao"></div>
+            <div id="inputsHiddenCriteriosAutorizacao"></div>
+        </div>
+
+        <!-- Modal de Adição -->
+        <div class="modal fade" id="modalCriterioAutorizacao" tabindex="-1" aria-labelledby="modalCriterioAutorizacaoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCriterioAutorizacaoLabel">
+                            <i class="fas fa-file-signature me-2"></i> Adicionar Critério de Autorização
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="criterioTipo" class="form-label">Tipo de Critério:</label>
+                            <select id="criterioTipo" class="form-select">
+                                <option value="">Selecione...</option>
+                                <option value="Este Formulário">Este Formulário</option>
+                                <option value="Laudo APAC">Laudo APAC</option>
+                                <option value="Exame Realizado">Exame Realizado</option>
+                                <option value="História Clínica">História Clínica</option>
+                                <option value="Relatório Exame Físico">Relatório Exame Físico</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="criterioArquivo" class="form-label">Anexar Arquivo:</label>
+                            <input type="file" id="criterioArquivo" class="form-control" accept=".pdf,.jpg,.jpeg,.png">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="criterioObservacao" class="form-label">Observação (opcional):</label>
+                            <textarea id="criterioObservacao" class="form-control" rows="2" placeholder="Adicione observações..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnSalvarCriterioAutorizacao">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let contadorCriterios = 0;
+
+            document.getElementById("btnSalvarCriterioAutorizacao").addEventListener("click", function () {
+              const tipo = document.getElementById("criterioTipo").value;
+              const arquivoInput = document.getElementById("criterioArquivo");
+              const observacao = document.getElementById("criterioObservacao").value;
+
+              if (!tipo) {
+                alert("Selecione o tipo de critério.");
+                return;
+              }
+
+              contadorCriterios++;
+
+              // Exibir lista
+              const lista = document.getElementById("listaCriteriosAutorizacao");
+              const itemDiv = document.createElement("div");
+              itemDiv.classList.add("item-lista", "mb-2", "p-2", "border", "rounded");
+              itemDiv.innerHTML = `
+                <strong>${tipo}</strong>
+                ${observacao ? `<br><small><em>${observacao}</em></small>` : ""}
+                ${arquivoInput.files.length > 0 ? `<br><i class="fas fa-paperclip"></i> ${arquivoInput.files[0].name}` : ""}
+                <button type="button" class="btn btn-sm btn-danger float-end" onclick="this.parentElement.remove()">Remover</button>
+              `;
+              lista.appendChild(itemDiv);
+
+              // Criar inputs hidden
+              const inputsHidden = document.getElementById("inputsHiddenCriteriosAutorizacao");
+              const hiddenTipo = document.createElement("input");
+              hiddenTipo.type = "hidden";
+              hiddenTipo.name = `CriteriosAutorizacao[${contadorCriterios}].Tipo`;
+              hiddenTipo.value = tipo;
+
+              const hiddenObs = document.createElement("input");
+              hiddenObs.type = "hidden";
+              hiddenObs.name = `CriteriosAutorizacao[${contadorCriterios}].Observacao`;
+              hiddenObs.value = observacao;
+
+              inputsHidden.appendChild(hiddenTipo);
+              inputsHidden.appendChild(hiddenObs);
+
+              // Resetar modal
+              document.getElementById("criterioTipo").value = "";
+              document.getElementById("criterioArquivo").value = "";
+              document.getElementById("criterioObservacao").value = "";
+              const modal = bootstrap.Modal.getInstance(document.getElementById("modalCriterioAutorizacao"));
+              modal.hide();
+            });
+        </script>
+
 
         </div>
         
@@ -81,36 +187,60 @@
                     <div id="inputsHiddenExames"></div>
                 </div>
 
-                <div class="section-card">
-                    <h2 class="section-title">
-                        <i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado
-                    </h2>
+            <div class="section-card">
+                <h2 class="section-title">
+                    <i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado
+                </h2>
 
-                    <div class="form-group">
-                        <label class="form-label">Tipo de Conduta:</label>
-
-                        <div class="checkbox-group">
-                            @foreach (var conduta in Model.TiposCondutas)
-                            {
-                                <div class="form-check-custom">
-                                    <input type="checkbox" id="conduta_@conduta.Id" value="@conduta.Id" name="CondutasSelecionadas" />
-                                    <label for="conduta_@conduta.Id">@conduta.Nome</label>
-                                </div>
-                            }
-                        </div>
-                    </div>
-
-                    
-                    <div class="form-grid mt-4">
-                        <div class="form-group full-width-field">
-                            <label asp-for="DescricaoDiagnostico" class="form-label">Descrição do Diagnóstico:</label>
-                            <textarea asp-for="DescricaoDiagnostico" class="form-control" rows="3" placeholder="Descreva o diagnóstico detalhadamente..."></textarea>
-                        </div>
-                        <div class="form-group"><label asp-for="CIDPrincipal" class="form-label">CID Principal:</label><input asp-for="CIDPrincipal" type="text" class="form-control" placeholder="Ex: M79.9"></div>
-                        <div class="form-group"><label asp-for="CIDSecundario" class="form-label">CID Secundário:</label><input asp-for="CIDSecundario" type="text" class="form-control" placeholder="Ex: M79.9"></div>
-                        <div class="form-group"><label asp-for="CIDCausasAssociadas" class="form-label">CID Causas Associadas:</label><input asp-for="CIDCausasAssociadas" type="text" class="form-control" placeholder="Ex: M79.9"></div>
+                <!-- Tipos de Conduta -->
+                <div class="form-group">
+                    <label class="form-label">Tipo de Conduta:</label>
+                    <div class="checkbox-group">
+                        @foreach (var conduta in Model.TiposCondutas)
+                        {
+                            <div class="form-check-custom">
+                                <input type="checkbox" id="conduta_@conduta.Id" value="@conduta.Id" name="CondutasSelecionadas" />
+                                <label for="conduta_@conduta.Id">@conduta.Nome</label>
+                            </div>
+                        }
                     </div>
                 </div>
+
+                <!-- Justificativas -->
+                <div class="form-group mt-4">
+                    <label class="form-label">Tipo de Justificativa:</label>
+                    <div class="checkbox-group">
+                        @foreach (var justificativa in Model.TiposJustificativas)
+                        {
+                            <div class="form-check-custom">
+                                <input type="checkbox" id="justificativa_@justificativa.Id" value="@justificativa.Id" name="JustificativasSelecionadas" />
+                                <label for="justificativa_@justificativa.Id">@justificativa.Nome</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Diagnóstico e CID -->
+                <div class="form-grid mt-4">
+                    <div class="form-group full-width-field">
+                        <label asp-for="DescricaoDiagnostico" class="form-label">Descrição do Diagnóstico:</label>
+                        <textarea asp-for="DescricaoDiagnostico" class="form-control" rows="3" placeholder="Descreva o diagnóstico detalhadamente..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CIDPrincipal" class="form-label">CID Principal:</label>
+                        <input asp-for="CIDPrincipal" type="text" class="form-control" placeholder="Ex: M79.9">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CIDSecundario" class="form-label">CID Secundário:</label>
+                        <input asp-for="CIDSecundario" type="text" class="form-control" placeholder="Ex: M79.9">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CIDCausasAssociadas" class="form-label">CID Causas Associadas:</label>
+                        <input asp-for="CIDCausasAssociadas" type="text" class="form-control" placeholder="Ex: M79.9">
+                    </div>
+                </div>
+            </div>
+
 
                 <div class="section-card">
                     <h2 class="section-title"><i class="fas fa-cog"></i> Implantes Metálicos e Outros</h2>

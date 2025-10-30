@@ -1,3 +1,5 @@
+wwwroot\css\createExam.css
+wwwroot\css\formulario.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\exame.js
