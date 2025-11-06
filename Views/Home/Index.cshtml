@@ -8,18 +8,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Ressonância Magnética</title>
-    
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <link href="~/css/formulario.css" rel="stylesheet">
 </head>
 <body>
 
-    
+
     <div class="form-container fade-in">
         <div class="progress-indicator"></div>
-        
+
         <div class="form-header">
             <h1><i class="fas fa-microscope me-3"></i>Ressonância Magnética</h1>
             <p>Secretaria de Estado da Saúde - Coordenadoria de Regiões de Saúde - Grupo de Regulação</p>
@@ -87,105 +87,111 @@
             let contadorCriterios = 0;
 
             document.getElementById("btnSalvarCriterioAutorizacao").addEventListener("click", function () {
-              const tipo = document.getElementById("criterioTipo").value;
-              const arquivoInput = document.getElementById("criterioArquivo");
-              const observacao = document.getElementById("criterioObservacao").value;
+                const tipo = document.getElementById("criterioTipo").value;
+                const arquivoInput = document.getElementById("criterioArquivo");
+                const observacao = document.getElementById("criterioObservacao").value;
 
-              if (!tipo) {
-                alert("Selecione o tipo de critério.");
-                return;
-              }
+                if (!tipo) {
+                    alert("Selecione o tipo de critério.");
+                    return;
+                }
 
-              contadorCriterios++;
+                contadorCriterios++;
 
-              // Exibir lista
-              const lista = document.getElementById("listaCriteriosAutorizacao");
-              const itemDiv = document.createElement("div");
-              itemDiv.classList.add("item-lista", "mb-2", "p-2", "border", "rounded");
-              itemDiv.innerHTML = `
-                <strong>${tipo}</strong>
-                ${observacao ? `<br><small><em>${observacao}</em></small>` : ""}
-                ${arquivoInput.files.length > 0 ? `<br><i class="fas fa-paperclip"></i> ${arquivoInput.files[0].name}` : ""}
-                <button type="button" class="btn btn-sm btn-danger float-end" onclick="this.parentElement.remove()">Remover</button>
-              `;
-              lista.appendChild(itemDiv);
+                // Exibir lista
+                const lista = document.getElementById("listaCriteriosAutorizacao");
+                const itemDiv = document.createElement("div");
+                itemDiv.classList.add("item-lista", "mb-2", "p-2", "border", "rounded");
+                itemDiv.innerHTML = `
+                            <strong>${tipo}</strong>
+                            ${observacao ? `<br><small><em>${observacao}</em></small>` : ""}
+                            ${arquivoInput.files.length > 0 ? `<br><i class="fas fa-paperclip"></i> ${arquivoInput.files[0].name}` : ""}
+                            <button type="button" class="btn btn-sm btn-danger float-end" onclick="this.parentElement.remove()">Remover</button>
+                          `;
+                lista.appendChild(itemDiv);
 
-              // Criar inputs hidden
-              const inputsHidden = document.getElementById("inputsHiddenCriteriosAutorizacao");
-              const hiddenTipo = document.createElement("input");
-              hiddenTipo.type = "hidden";
-              hiddenTipo.name = `CriteriosAutorizacao[${contadorCriterios}].Tipo`;
-              hiddenTipo.value = tipo;
+                // Criar inputs hidden
+                const inputsHidden = document.getElementById("inputsHiddenCriteriosAutorizacao");
+                const hiddenTipo = document.createElement("input");
+                hiddenTipo.type = "hidden";
+                hiddenTipo.name = `CriteriosAutorizacao[${contadorCriterios}].Tipo`;
+                hiddenTipo.value = tipo;
 
-              const hiddenObs = document.createElement("input");
-              hiddenObs.type = "hidden";
-              hiddenObs.name = `CriteriosAutorizacao[${contadorCriterios}].Observacao`;
-              hiddenObs.value = observacao;
+                const hiddenObs = document.createElement("input");
+                hiddenObs.type = "hidden";
+                hiddenObs.name = `CriteriosAutorizacao[${contadorCriterios}].Observacao`;
+                hiddenObs.value = observacao;
 
-              inputsHidden.appendChild(hiddenTipo);
-              inputsHidden.appendChild(hiddenObs);
+                inputsHidden.appendChild(hiddenTipo);
+                inputsHidden.appendChild(hiddenObs);
 
-              // Resetar modal
-              document.getElementById("criterioTipo").value = "";
-              document.getElementById("criterioArquivo").value = "";
-              document.getElementById("criterioObservacao").value = "";
-              const modal = bootstrap.Modal.getInstance(document.getElementById("modalCriterioAutorizacao"));
-              modal.hide();
+                // Resetar modal
+                document.getElementById("criterioTipo").value = "";
+                document.getElementById("criterioArquivo").value = "";
+                document.getElementById("criterioObservacao").value = "";
+                const modal = bootstrap.Modal.getInstance(document.getElementById("modalCriterioAutorizacao"));
+                modal.hide();
+                setTimeout(() => {
+  document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+  document.body.classList.remove('modal-open');
+  document.body.style.overflow = '';      // libera scroll
+  document.body.style.paddingRight = '';  // remove compensação
+}, 300);
             });
         </script>
 
 
-        </div>
-        
-        <div class="form-content">
-            <form asp-action="SalvarFormulario" method="post" enctype="multipart/form-data">
-                
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-hospital"></i> Identificação do Serviço Solicitante</h2>
-                    <div class="form-grid">
-                        <div class="form-group"><label asp-for="Solicitante.Unidade" class="form-label">Unidade:</label><input asp-for="Solicitante.Unidade" type="text" class="form-control" placeholder="Nome da unidade solicitante"></div>
-                        <div class="form-group"><label asp-for="Solicitante.Unidade.NIR" class="form-label">Telefone NIR:</label><input asp-for="Solicitante.Unidade.NIR" type="tel" class="form-control" placeholder="(11) 99999-9999"></div>
-                        <div class="form-group"><label asp-for="Solicitante.Medico.Nome" class="form-label">Médico Solicitante:</label><input asp-for="Solicitante.Medico.Nome" type="text" class="form-control" placeholder="Nome do médico"></div>
-                        <div class="form-group"><label asp-for="Solicitante.Medico.CRM" class="form-label">CRM:</label><input asp-for="Solicitante.Medico.CRM" type="text" class="form-control" placeholder="Número do CRM"></div>
-                    </div>
-                </div>
+    </div>
 
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-user"></i> Identificação do Paciente</h2>
-                    <div class="form-grid">
-                        <div class="form-group full-width-field"><label asp-for="Paciente.Nome" class="form-label">Nome Completo:</label><input asp-for="Paciente.Nome" type="text" class="form-control" placeholder="Nome completo do paciente"></div>
-                        <div class="form-group"><label asp-for="Paciente.CodigoSIRESP" class="form-label">Código SIRESP:</label><input asp-for="Paciente.CodigoSIRESP" type="text" class="form-control" placeholder="Código SIRESP"></div>
-                        <div class="form-group"><label asp-for="Paciente.DataNascimento" class="form-label">Data de Nascimento:</label><input asp-for="Paciente.DataNascimento" type="date" class="form-control"></div>
-                        <div class="form-group"><label asp-for="Paciente.Idade" class="form-label">Idade:</label><input asp-for="Paciente.Idade" type="number" class="form-control" placeholder="Anos"></div>
-                        <div class="form-group">
-                            <label asp-for="Paciente.Sexo" class="form-label">Sexo:</label>
-                            <select asp-for="Paciente.Sexo" class="form-select"><option value="">Selecione...</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
-                        </div>
-                        <div class="form-group"><label asp-for="Peso" class="form-label">Peso (Máx: 170kg):</label><input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="kg"></div>
-                        <div class="form-group"><label asp-for="Altura" class="form-label">Altura:</label><input asp-for="Altura" type="number" step="0.01" class="form-control" placeholder="cm"></div>
-                        <div class="form-group"><label asp-for="CircunferenciaAbdominal" class="form-label">Circunferência Abdominal (Máx: 136cm):</label><input asp-for="CircunferenciaAbdominal" type="number" step="0.01" class="form-control" placeholder="cm"></div>
-                        <div class="form-group"><label asp-for="ValorUreia" class="form-label">UREIA:</label><input asp-for="ValorUreia" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
-                        <div class="form-group"><label asp-for="ValorCreatinina" class="form-label">CREATININA:</label><input asp-for="ValorCreatinina" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
-                    </div>
-                </div>
+    <div class="form-content">
+        <form asp-action="SalvarFormulario" method="post" enctype="multipart/form-data">
 
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-images"></i> Exames de Imagem Já Realizados</h2>
-                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExameRealizado"><i class="fas fa-plus"></i> Adicionar Exame Realizado</button>
-                    <div id="listaExamesRealizados"></div>
-                    <div id="inputsHiddenExamesRealizados"></div>
-                    <div class="form-group full-width-field mt-4">
-                        <label asp-for="Motivo" class="form-label">Motivo da solicitação da ressonância (quando insuficiência dos exames anteriores):</label>
-                        <textarea asp-for="Motivo" class="form-control" rows="3" placeholder="Descreva o motivo da solicitação..."></textarea>
-                    </div>
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-hospital"></i> Identificação do Serviço Solicitante</h2>
+                <div class="form-grid">
+                    <div class="form-group"><label asp-for="Solicitante.Unidade" class="form-label">Unidade:</label><input asp-for="Solicitante.Unidade" type="text" class="form-control" placeholder="Nome da unidade solicitante"></div>
+                    <div class="form-group"><label asp-for="Solicitante.Unidade.NIR" class="form-label">Telefone NIR:</label><input asp-for="Solicitante.Unidade.NIR" type="tel" class="form-control" placeholder="(11) 99999-9999"></div>
+                    <div class="form-group"><label asp-for="Solicitante.Medico.Nome" class="form-label">Médico Solicitante:</label><input asp-for="Solicitante.Medico.Nome" type="text" class="form-control" placeholder="Nome do médico"></div>
+                    <div class="form-group"><label asp-for="Solicitante.Medico.CRM" class="form-label">CRM:</label><input asp-for="Solicitante.Medico.CRM" type="text" class="form-control" placeholder="Número do CRM"></div>
                 </div>
+            </div>
 
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-stethoscope"></i> Exame Solicitado (Conforme Nomenclatura SESSP)</h2>
-                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExame"><i class="fas fa-plus"></i> Adicionar Exame Solicitado</button>
-                    <div id="listaExames"></div>
-                    <div id="inputsHiddenExames"></div>
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-user"></i> Identificação do Paciente</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width-field"><label asp-for="Paciente.Nome" class="form-label">Nome Completo:</label><input asp-for="Paciente.Nome" type="text" class="form-control" placeholder="Nome completo do paciente"></div>
+                    <div class="form-group"><label asp-for="Paciente.CodigoSIRESP" class="form-label">Código SIRESP:</label><input asp-for="Paciente.CodigoSIRESP" type="text" class="form-control" placeholder="Código SIRESP"></div>
+                    <div class="form-group"><label asp-for="Paciente.DataNascimento" class="form-label">Data de Nascimento:</label><input asp-for="Paciente.DataNascimento" type="date" class="form-control"></div>
+                    <div class="form-group"><label asp-for="Paciente.Idade" class="form-label">Idade:</label><input asp-for="Paciente.Idade" type="number" class="form-control" placeholder="Anos"></div>
+                    <div class="form-group">
+                        <label asp-for="Paciente.Sexo" class="form-label">Sexo:</label>
+                        <select asp-for="Paciente.Sexo" class="form-select"><option value="">Selecione...</option><option value="M">Masculino</option><option value="F">Feminino</option></select>
+                    </div>
+                    <div class="form-group"><label asp-for="Peso" class="form-label">Peso (Máx: 170kg):</label><input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="kg"></div>
+                    <div class="form-group"><label asp-for="Altura" class="form-label">Altura:</label><input asp-for="Altura" type="number" step="0.01" class="form-control" placeholder="cm"></div>
+                    <div class="form-group"><label asp-for="CircunferenciaAbdominal" class="form-label">Circunferência Abdominal (Máx: 136cm):</label><input asp-for="CircunferenciaAbdominal" type="number" step="0.01" class="form-control" placeholder="cm"></div>
+                    <div class="form-group"><label asp-for="ValorUreia" class="form-label">UREIA:</label><input asp-for="ValorUreia" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
+                    <div class="form-group"><label asp-for="ValorCreatinina" class="form-label">CREATININA:</label><input asp-for="ValorCreatinina" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
                 </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-images"></i> Exames de Imagem Já Realizados</h2>
+                <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExameRealizado"><i class="fas fa-plus"></i> Adicionar Exame Realizado</button>
+                <div id="listaExamesRealizados"></div>
+                <div id="inputsHiddenExamesRealizados"></div>
+                <div class="form-group full-width-field mt-4">
+                    <label asp-for="Motivo" class="form-label">Motivo da solicitação da ressonância (quando insuficiência dos exames anteriores):</label>
+                    <textarea asp-for="Motivo" class="form-control" rows="3" placeholder="Descreva o motivo da solicitação..."></textarea>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-stethoscope"></i> Exame Solicitado (Conforme Nomenclatura SESSP)</h2>
+                <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalExame"><i class="fas fa-plus"></i> Adicionar Exame Solicitado</button>
+                <div id="listaExames"></div>
+                <div id="inputsHiddenExames"></div>
+            </div>
 
             <div class="section-card">
                 <h2 class="section-title">
@@ -242,27 +248,28 @@
             </div>
 
 
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-cog"></i> Implantes Metálicos e Outros</h2>
-                    <p class="text-document mb-3">Indicar a presença de dispositivos (metálicos e outros)</p>
-                    <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalImplante"><i class="fas fa-plus"></i> Adicionar Implante</button>
-                    <div id="listaImplantes"></div>
-                    <div id="inputsHidden"></div>
-                </div>
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-cog"></i> Implantes Metálicos e Outros</h2>
+                <p class="text-document mb-3">Indicar a presença de dispositivos (metálicos e outros)</p>
+                <button type="button" class="btn-modern mb-4" data-bs-toggle="modal" data-bs-target="#modalImplante"><i class="fas fa-plus"></i> Adicionar Implante</button>
+                <div id="listaImplantes"></div>
+                <div id="inputsHidden"></div>
+            </div>
 
-                <div class="section-card">
-                    <h2 class="section-title"><i class="fas fa-signature"></i> Data e Assinatura</h2>
-                    <div class="form-grid">
-                        <div class="form-group"><label asp-for="Data" class="form-label">Data:</label><input asp-for="Data" type="date" class="form-control"></div>
-                        <div class="form-group full-width-field"><p class="text-document mt-3">Assinatura e carimbo do médico solicitante</p></div>
-                    </div>
+            <div class="section-card">
+                <h2 class="section-title"><i class="fas fa-signature"></i> Data e Assinatura</h2>
+                <div class="form-grid">
+                    c
+                    <div class="form-group"><label asp-for="Data" class="form-label">Data:</label><input asp-for="Data" type="date" class="form-control"></div>
+                    <div class="form-group full-width-field"><p class="text-document mt-3">Assinatura e carimbo do médico solicitante</p></div>
                 </div>
-                
-                <div class="text-center mt-5">
-                    <button type="submit" class="btn-modern btn-primary-modern"><i class="fas fa-save"></i> Salvar Formulário</button>
-                </div>
-            </form>
-        </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn-modern btn-primary-modern"><i class="fas fa-save"></i> Salvar Formulário</button>
+            </div>
+        </form>
+    </div>
     </div>
 
     <div class="modal fade" id="modalExameRealizado" tabindex="-1">
@@ -280,7 +287,7 @@
                                 <option value="">Selecione o tipo...</option>
                                 @foreach (TipoExame tipo in Model.TiposExames)
                                 {
-                                <option value="@tipo.Id">@tipo.Nome</option>
+                                    <option value="@tipo.Id">@tipo.Nome</option>
                                 }
 
                             </select>
@@ -338,9 +345,9 @@
                         <div class="form-group">
                             <label class="form-label">Lateralidade:</label>
                             <select id="lateralidade" class="form-select">
-                                @foreach(Lateralidade lateralidade in Model.Lateralidades)
+                                @foreach (Lateralidade lateralidade in Model.Lateralidades)
                                 {
-                                <option value="@lateralidade.Id">@lateralidade.Nome</option>
+                                    <option value="@lateralidade.Id">@lateralidade.Nome</option>
                                 }
                             </select>
                         </div>
@@ -396,6 +403,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/examesRealizados.js"></script>
     <script src="~/js/exames.js"></script>
-    <script src="~/js/implantes.js"></script>
+    <script src="~/js/implante.js"></script>
 </body>
 </html>

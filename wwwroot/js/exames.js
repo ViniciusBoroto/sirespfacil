@@ -44,4 +44,10 @@ function adicionarExame() {
     // Fechar modal
     const modal = bootstrap.Modal.getInstance(document.getElementById("modalExame"));
     modal.hide();
+    setTimeout(() => {
+        document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';      // libera scroll
+        document.body.style.paddingRight = '';  // remove compensação
+    }, 300);
 }
