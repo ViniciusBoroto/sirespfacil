@@ -132,11 +132,11 @@
                 const modal = bootstrap.Modal.getInstance(document.getElementById("modalCriterioAutorizacao"));
                 modal.hide();
                 setTimeout(() => {
-  document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
-  document.body.classList.remove('modal-open');
-  document.body.style.overflow = '';      // libera scroll
-  document.body.style.paddingRight = '';  // remove compensação
-}, 300);
+                    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+                    document.body.classList.remove('modal-open');
+                    document.body.style.overflow = '';      // libera scroll
+                    document.body.style.paddingRight = '';  // remove compensação
+                }, 300);
             });
         </script>
 
@@ -198,28 +198,34 @@
                     <i class="fas fa-clipboard-check"></i> Justificativa do Exame Solicitado
                 </h2>
 
-                <!-- Tipos de Conduta -->
+                <!-- Conduta -->
                 <div class="form-group">
                     <label class="form-label">Tipo de Conduta:</label>
                     <div class="checkbox-group">
                         @foreach (var conduta in Model.TiposCondutas)
                         {
                             <div class="form-check-custom">
-                                <input type="checkbox" id="conduta_@conduta.Id" value="@conduta.Id" name="CondutasSelecionadas" />
+                                <input type="radio"
+                                       id="conduta_@conduta.Id"
+                                       name="Conduta.Id"
+                                       value="@conduta.Id" />
                                 <label for="conduta_@conduta.Id">@conduta.Nome</label>
                             </div>
                         }
                     </div>
                 </div>
 
-                <!-- Justificativas -->
+                <!-- Justificativa -->
                 <div class="form-group mt-4">
                     <label class="form-label">Tipo de Justificativa:</label>
                     <div class="checkbox-group">
                         @foreach (var justificativa in Model.TiposJustificativas)
                         {
                             <div class="form-check-custom">
-                                <input type="checkbox" id="justificativa_@justificativa.Id" value="@justificativa.Id" name="JustificativasSelecionadas" />
+                                <input type="radio"
+                                       id="justificativa_@justificativa.Id"
+                                       name="Justificativa.Id"
+                                       value="@justificativa.Id" />
                                 <label for="justificativa_@justificativa.Id">@justificativa.Nome</label>
                             </div>
                         }
