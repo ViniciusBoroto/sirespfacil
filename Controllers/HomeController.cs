@@ -51,6 +51,10 @@ namespace SirespFacil.Controllers
         [HttpPost]
         public IActionResult SalvarFormulario(RessonanciaMagneticaViewModel model)
         {
+            if (model.Justificativa is null || model.Conduta is null)
+            {
+                return BadRequest("Precisa de justificativa e conduta");
+            }
             var modelDb = new RessonanciaMagnetica();
             foreach (var criterioAutorizacao in model.CriteriosDeAutorizacao)
             {
@@ -86,8 +90,13 @@ namespace SirespFacil.Controllers
                 var caminhos = SalvarArquivos(exame.Arquivos);
                 exameDb.CaminhosArquivos = caminhos;
             }
-
+            try
+            {
             _ressonanciaMagneticaRepository.Add(modelDb);
+            } catch(Exception ex)
+            {
+                return StatusCode(500, $"Falha ao salvar no banco de dados: {ex.Message} {ex.StackTrace}. {ex.Source}");
+            }
             // salvar no banco a referência (exame + caminhos dos arquivos)
             return RedirectToAction("Index");
         }

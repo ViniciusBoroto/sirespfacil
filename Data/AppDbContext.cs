@@ -23,7 +23,6 @@
         public DbSet<Lateralidade> Lateralidades { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
-        public DbSet<Sexo> Sexo { get; set; }
         public DbSet<Solicitante> Solicitantes { get; set; }
         public DbSet<TipoCriterioAutorizacao> TiposCriterioAutorizacao { get; set; }
         public DbSet<TipoExame> TiposExames { get; set; }

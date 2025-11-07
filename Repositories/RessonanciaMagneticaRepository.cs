@@ -63,6 +63,7 @@ namespace SirespFacil.Repositories
             {
                 _db.Attach(es.Lateralidade);
             });
+            _db.Attach(ressonancia.Paciente.Sexo);
 
             _db.Attach(ressonancia.Conduta);
             _db.Attach(ressonancia.Justificativa);
