@@ -149,28 +149,29 @@
             <div class="section-card">
                 <h2 class="section-title"><i class="fas fa-hospital"></i> Identificação do Serviço Solicitante</h2>
                 <div class="form-grid">
-                    <div class="form-group"><label asp-for="Solicitante.Unidade" class="form-label">Unidade:</label><input asp-for="Solicitante.Unidade" type="text" class="form-control" placeholder="Nome da unidade solicitante"></div>
+                    <div class="form-group"><label asp-for="Solicitante.Unidade" class="form-label required">Unidade:</label><input asp-for="Solicitante.Unidade" type="text" class="form-control" placeholder="Nome da unidade solicitante" required></div>
                     <div class="form-group"><label asp-for="Solicitante.Unidade.NIR" class="form-label">Telefone NIR:</label><input asp-for="Solicitante.Unidade.NIR" type="tel" class="form-control" placeholder="(11) 99999-9999"></div>
-                    <div class="form-group"><label asp-for="Solicitante.Medico.Nome" class="form-label">Médico Solicitante:</label><input asp-for="Solicitante.Medico.Nome" type="text" class="form-control" placeholder="Nome do médico"></div>
-                    <div class="form-group"><label asp-for="Solicitante.Medico.CRM" class="form-label">CRM:</label><input asp-for="Solicitante.Medico.CRM" type="text" class="form-control" placeholder="Número do CRM"></div>
+                    <div class="form-group"><label asp-for="Solicitante.Medico.Nome" class="form-label required">Médico Solicitante:</label><input asp-for="Solicitante.Medico.Nome" type="text" class="form-control" placeholder="Nome do médico" required></div>
+                    <div class="form-group"><label asp-for="Solicitante.Medico.CRM" class="form-label required">CRM:</label><input asp-for="Solicitante.Medico.CRM" type="text" class="form-control" placeholder="Número do CRM" required></div>
                 </div>
             </div>
 
             <div class="section-card">
                 <h2 class="section-title"><i class="fas fa-user"></i> Identificação do Paciente</h2>
                 <div class="form-grid">
-                    <div class="form-group full-width-field"><label asp-for="Paciente.Nome" class="form-label">Nome Completo:</label><input asp-for="Paciente.Nome" type="text" class="form-control" placeholder="Nome completo do paciente"></div>
+                    <div class="form-group full-width-field"><label asp-for="Paciente.Nome" class="form-label required">Nome Completo:</label><input asp-for="Paciente.Nome" type="text" class="form-control" placeholder="Nome completo do paciente" required></div>
                     <div class="form-group"><label asp-for="Paciente.CodigoSIRESP" class="form-label">Código SIRESP:</label><input asp-for="Paciente.CodigoSIRESP" type="text" class="form-control" placeholder="Código SIRESP"></div>
-                    <div class="form-group"><label asp-for="Paciente.DataNascimento" class="form-label">Data de Nascimento:</label><input asp-for="Paciente.DataNascimento" type="date" class="form-control"></div>
+                    <div class="form-group"><label asp-for="Paciente.DataNascimento" class="form-label required">Data de Nascimento:</label><input asp-for="Paciente.DataNascimento" type="date" class="form-control" required></div>
                     <div class="form-group"><label asp-for="Paciente.Idade" class="form-label">Idade:</label><input asp-for="Paciente.Idade" type="number" class="form-control" placeholder="Anos"></div>
                     <div class="form-group">
-                        <label asp-for="Paciente.Sexo" class="form-label">Sexo:</label>
-                        <select asp-for="Paciente.Sexo" class="form-select">
+                        <label asp-for="Paciente.Sexo" class="form-label required">Sexo:</label>
+                        <select asp-for="Paciente.Sexo" class="form-select" required>
                             <option value="">Selecione...</option>
                             <option value="M">Masculino</option>
-                            <option value="F">Feminino</option></select>
+                            <option value="F">Feminino</option>
+                        </select>
                     </div>
-                    <div class="form-group"><label asp-for="Peso" class="form-label">Peso (Máx: 170kg):</label><input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="kg"></div>
+                    <div class="form-group"><label asp-for="Peso" class="form-label required">Peso (Máx: 170kg):</label><input asp-for="Peso" type="number" step="0.01" class="form-control" placeholder="kg" required></div>
                     <div class="form-group"><label asp-for="Altura" class="form-label">Altura:</label><input asp-for="Altura" type="number" step="0.01" class="form-control" placeholder="cm"></div>
                     <div class="form-group"><label asp-for="CircunferenciaAbdominal" class="form-label">Circunferência Abdominal (Máx: 136cm):</label><input asp-for="CircunferenciaAbdominal" type="number" step="0.01" class="form-control" placeholder="cm"></div>
                     <div class="form-group"><label asp-for="ValorUreia" class="form-label">UREIA:</label><input asp-for="ValorUreia" type="number" step="0.01" class="form-control" placeholder="mg/dL"></div>
@@ -203,7 +204,7 @@
 
                 <!-- Conduta -->
                 <div class="form-group">
-                    <label class="form-label">Tipo de Conduta:</label>
+                    <label class="form-label required">Tipo de Conduta:</label>
                     <div class="checkbox-group">
                         @foreach (var conduta in Model.TiposCondutas)
                         {
@@ -211,7 +212,7 @@
                                 <input type="radio"
                                        id="conduta_@conduta.Id"
                                        name="Conduta.Id"
-                                       value="@conduta.Id" />
+                                       value="@conduta.Id" required />
                                 <label for="conduta_@conduta.Id">@conduta.Nome</label>
                             </div>
                         }
@@ -220,7 +221,7 @@
 
                 <!-- Justificativa -->
                 <div class="form-group mt-4">
-                    <label class="form-label">Tipo de Justificativa:</label>
+                    <label class="form-label required">Tipo de Justificativa:</label>
                     <div class="checkbox-group">
                         @foreach (var justificativa in Model.TiposJustificativas)
                         {
@@ -228,7 +229,7 @@
                                 <input type="radio"
                                        id="justificativa_@justificativa.Id"
                                        name="Justificativa.Id"
-                                       value="@justificativa.Id" />
+                                       value="@justificativa.Id" required />
                                 <label for="justificativa_@justificativa.Id">@justificativa.Nome</label>
                             </div>
                         }
@@ -269,7 +270,7 @@
                 <h2 class="section-title"><i class="fas fa-signature"></i> Data e Assinatura</h2>
                 <div class="form-grid">
                     c
-                    <div class="form-group"><label asp-for="Data" class="form-label">Data:</label><input asp-for="Data" type="date" class="form-control"></div>
+                    <div class="form-group"><label asp-for="Data" class="form-label required">Data:</label><input asp-for="Data" type="date" class="form-control" required></div>
                     <div class="form-group full-width-field"><p class="text-document mt-3">Assinatura e carimbo do médico solicitante</p></div>
                 </div>
             </div>
@@ -279,7 +280,7 @@
             </div>
         </form>
     </div>
-@*     </div> *@
+    @*     </div> *@
 
     <div class="modal fade" id="modalExameRealizado" tabindex="-1">
         <div class="modal-dialog modal-lg">
