@@ -9,6 +9,6 @@
         public char? Sexo { get; set; }
 
         public int Idade { get; set; }
-        public List<RessonanciaMagnetica> RessonanciasMagneticas { get; set; }
+        public List<RessonanciaMagnetica> RessonanciaMagneticas { get; set; }
     }
 }
