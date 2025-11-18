@@ -40,10 +40,10 @@ body {
 }
 
 .form-header {
-    background: var(--gradient-primary);
     color: white;
     padding: 40px 30px;
     text-align: center;
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
 }

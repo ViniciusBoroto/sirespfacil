@@ -1,0 +1,66 @@
+/* formulario.css - Estilos  */
+
+.exames-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 20px;
+	margin-top: 10px;
+}
+
+.exame-card {
+	background: var(--card-background);
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	padding: 18px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 120px;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.exame-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 10px 30px rgb(37 99 235 / 0.08);
+}
+
+.exame-preview {
+	color: var(--text-primary);
+}
+
+.exame-title {
+	font-weight: 700;
+	color: var(--primary-color);
+	font-size: 1.05rem;
+	margin-bottom: 6px;
+}
+
+.exame-sub {
+	color: var(--text-secondary);
+	font-size: 0.95rem;
+	margin-bottom: 8px;
+}
+
+.exame-files {
+	font-size: 0.85rem;
+	color: #6b7280;
+}
+
+.exame-actions {
+	margin-top: 12px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.detalhe-row {
+	margin-bottom: 10px;
+}
+
+/* responsividade: ajustar espaçamento em telas pequenas */
+@media (max-width: 600px) {
+	.form-header h1 { font-size: 1.6rem; }
+	.exames-grid { gap: 12px; }
+}
+
+/* pequeno ajuste visual para o botão dentro da home quando usado para navegar */
+.btn-modern.btn-sm { padding: 8px 12px; font-size: 0.9rem; }

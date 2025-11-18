@@ -1,0 +1,119 @@
+@using SirespFacil.Models.ViewModels
+@model RessonanciaMagneticaViewModel
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Resonâncias - Exames</title>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<link href="~/css/formulario.css" rel="stylesheet" />
+	<link href="~/css/Resonancias.css" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="form-content">
+		<div class="progress-indicator"></div>
+
+		<div class="form-header">
+			<h1><i class="fas fa-images me-3"></i>Ressonâncias</h1>
+			<p>Exames cadastrados — clique em uma prévia para ver todos os detalhes.</p>
+		</div>
+
+		<div class="section-card">
+			<h2 class="section-title"><i class="fas fa-list"></i> Exames Realizados</h2>
+
+			@if (Model?.Exames != null && Model.Exames.Any())
+			{
+				<div class="exames-grid">
+					@foreach (var exame in Model.Exames)
+					{
+						var arquivoNomes = exame.Arquivos != null && exame.Arquivos.Any() ? string.Join(";", exame.Arquivos.Select(a => a.FileName)) : string.Empty;
+						<div class="exame-card fade-in" data-tipo="@exame.Tipo?.Nome" data-data="@exame.Data.ToString("dd/MM/yyyy")" data-arquivos="@arquivoNomes">
+							<div class="exame-preview">
+								<div class="exame-title">@exame.Tipo?.Nome</div>
+								<div class="exame-sub">@exame.Data.ToString("dd/MM/yyyy")</div>
+								<div class="exame-files">@((exame.Arquivos != null) ? exame.Arquivos.Count + " arquivo(s)" : "0 arquivo(s)")</div>
+							</div>
+							<div class="exame-actions">
+								<button class="btn-modern btn-sm ver-detalhes" type="button"><i class="fas fa-eye me-2"></i>Ver detalhes</button>
+							</div>
+						</div>
+					}
+				</div>
+			}
+			else
+			{
+				<div class="text-document">Nenhum exame encontrado.</div>
+			}
+		</div>
+
+	</div>
+
+	<!-- Modal de detalhes -->
+	<div class="modal fade" id="detalheModal" tabindex="-1" aria-labelledby="detalheModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="detalheModalLabel"><i class="fas fa-file-medical me-2"></i> Detalhes do Exame</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<div class="detalhe-row"><strong>Tipo:</strong> <span id="detalhe-tipo"></span></div>
+					<div class="detalhe-row"><strong>Data:</strong> <span id="detalhe-data"></span></div>
+					<div class="detalhe-row"><strong>Arquivos:</strong>
+						<ul id="detalhe-arquivos" class="list-unstyled mt-2"></ul>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			var detalheModalEl = document.getElementById('detalheModal');
+			var detalheModal = new bootstrap.Modal(detalheModalEl);
+
+			document.querySelectorAll('.ver-detalhes').forEach(function (btn) {
+				btn.addEventListener('click', function (e) {
+					var card = e.target.closest('.exame-card');
+					if (!card) return;
+					var tipo = card.dataset.tipo || '';
+					var data = card.dataset.data || '';
+					var arquivos = card.dataset.arquivos || '';
+
+					document.getElementById('detalhe-tipo').textContent = tipo;
+					document.getElementById('detalhe-data').textContent = data;
+
+					var arquivosList = document.getElementById('detalhe-arquivos');
+					arquivosList.innerHTML = '';
+					if (arquivos) {
+						arquivos.split(';').forEach(function (nome) {
+							if (nome && nome.trim().length > 0) {
+								var li = document.createElement('li');
+								li.textContent = nome;
+								arquivosList.appendChild(li);
+							}
+						});
+					} else {
+						var li = document.createElement('li');
+						li.textContent = 'Nenhum arquivo anexado.';
+						arquivosList.appendChild(li);
+					}
+
+					detalheModal.show();
+				});
+			});
+		});
+	</script>
+</body>
+</html>
+
+
