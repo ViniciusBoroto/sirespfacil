@@ -26,6 +26,6 @@
         public string CIDCausasAssociadas { get; set; }
         public List<ImplanteMetalico> ImplantesMetalicos { get; set; } = new List<ImplanteMetalico>();
         public DateOnly Data { get; set; }
-        public string OutroExame { get; set; }
+        public string OutroExame { get; set; } = "";
     }
 }

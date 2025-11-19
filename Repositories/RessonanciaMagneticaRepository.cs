@@ -56,14 +56,19 @@ namespace SirespFacil.Repositories
                 _db.Attach(ca.Tipo);
             });
             if (ressonancia.Solicitante?.Id != 0)
+            {
                 _db.Attach(ressonancia.Solicitante!);
+                if (ressonancia.Solicitante.Unidade.Id != 0)
+                    _db.Attach(ressonancia.Solicitante.Unidade);
+                if (ressonancia.Solicitante.Medico.Id != 0)
+                    _db.Attach(ressonancia.Solicitante.Medico);
+            }
             if (ressonancia.Paciente.Id != 0)
                 _db.Attach(ressonancia.Paciente);
             ressonancia.ExamesSolicitados?.ForEach(es =>
             {
                 _db.Attach(es.Lateralidade);
             });
-            _db.Attach(ressonancia.Paciente.Sexo);
 
             _db.Attach(ressonancia.Conduta);
             _db.Attach(ressonancia.Justificativa);
