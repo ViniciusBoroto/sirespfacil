@@ -3,28 +3,35 @@ using SirespFacil.Models.ViewModels;
 using SirespFacil.Models;
 using System;
 using System.Collections.Generic;
+using SirespFacil.Data;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace SirespFacil.Controllers
 {
     public class ResonanciasController : Controller
     {
+        public AppDbContext _context { get; set; }
+        public ResonanciasController(AppDbContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            // dados mockados
-            var tipo1 = new TipoExame { Id = 1, Nome = "RM Crânio" };
-            var tipo2 = new TipoExame { Id = 2, Nome = "RM Coluna" };
-
-            var model = new RessonanciaMagneticaViewModel()
+            //var res = _context.RessonanciasMagneticas.Include(r => r.Solicitante).Include(r => r.Paciente).ToList();
+            List<RessonanciaMagnetica> res =[new () {
+                Solicitante = new Solicitante() { Unidade = new Unidade() { Nome = "teste" } }, Paciente = new Paciente() { Nome = "paciete teste" },
+                ];
+            var lista = res.Select(r =>
             {
-                TiposExames = new List<TipoExame> { tipo1, tipo2 },
-                Exames = new List<ExameViewModel>
+                return new RessonanciaMagneticaViewModel()
                 {
-                    new ExameViewModel { Id = 1, Tipo = tipo1, Data = DateTime.Now.AddDays(-10) },
-                    new ExameViewModel { Id = 2, Tipo = tipo2, Data = DateTime.Now.AddDays(-30) }
-                }
-            };
+                    Paciente = r.Paciente,
+                    Solicitante= r.Solicitante,
+                };
+            });
 
-            return View(model);
+            return View(lista);
         }
     }
 }
