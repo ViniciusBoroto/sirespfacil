@@ -49,21 +49,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-    <!-- no _Layout.cshtml -->
-    @RenderBody()
-
-    <!-- Scripts globais -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Corrige o scroll de todos os modais -->
     <script>
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('shown.bs.modal', () => {
-                document.body.style.overflow = 'auto';
-            });
-            modal.addEventListener('hidden.bs.modal', () => {
-                document.body.style.overflow = 'auto';
-            });
+        document.body.addEventListener('hidden.bs.modal', function () {
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
+            const backdrops = document.querySelectorAll('.modal-backdrop');
+            backdrops.forEach(backdrop => backdrop.remove());
         });
     </script>
 </body>
