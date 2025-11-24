@@ -1,5 +1,5 @@
 @using SirespFacil.Models.ViewModels
-@model RessonanciaMagneticaViewModel
+@model List<RessonanciaMagneticaViewModel>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -26,17 +26,15 @@
 		<div class="section-card">
 			<h2 class="section-title"><i class="fas fa-list"></i> Exames Realizados</h2>
 
-			@if (Model?.Exames != null && Model.Exames.Any())
-			{
+			@if (Model.Count > 0)
+			{	
 				<div class="exames-grid">
-					@foreach (var exame in Model.Exames)
+					@foreach (var ressonancia in Model)
 					{
-						var arquivoNomes = exame.Arquivos != null && exame.Arquivos.Any() ? string.Join(";", exame.Arquivos.Select(a => a.FileName)) : string.Empty;
-						<div class="exame-card fade-in" data-tipo="@exame.Tipo?.Nome" data-data="@exame.Data.ToString("dd/MM/yyyy")" data-arquivos="@arquivoNomes">
+						<div class="exame-card fade-in" data-tipo="@ressonancia.Solicitante.Unidade" data-data="@ressonancia.Data.ToString("dd/MM/yyyy")">
 							<div class="exame-preview">
-								<div class="exame-title">@exame.Tipo?.Nome</div>
-								<div class="exame-sub">@exame.Data.ToString("dd/MM/yyyy")</div>
-								<div class="exame-files">@((exame.Arquivos != null) ? exame.Arquivos.Count + " arquivo(s)" : "0 arquivo(s)")</div>
+								<div class="exame-title">@ressonancia.Solicitante.Unidade</div>
+								<div class="exame-sub">@ressonancia.Data.ToString("dd/MM/yyyy")</div>
 							</div>
 							<div class="exame-actions">
 								<button class="btn-modern btn-sm ver-detalhes" type="button"><i class="fas fa-eye me-2"></i>Ver detalhes</button>
@@ -45,6 +43,7 @@
 					}
 				</div>
 			}
+
 			else
 			{
 				<div class="text-document">Nenhum exame encontrado.</div>
