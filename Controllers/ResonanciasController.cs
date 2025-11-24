@@ -24,12 +24,23 @@ namespace SirespFacil.Controllers
                 return new RessonanciaMagneticaViewModel()
                 {
                     Paciente = r.Paciente,
+                    Data = r.Data,
                     Motivo = r.Motivo,
+                    Peso = r.Peso,
+                    Altura = r.Altura,
+                    CircunferenciaAbdominal = r.CircunferenciaAbdominal,
+                    ValorUreia = r.ValorUreia,
+                    ValorCreatinina = r.ValorCreatinina,
+                    DescricaoDiagnostico = r.DescricaoDiagnostico,
+                    CIDPrincipal = r.CIDPrincipal,
+                    CIDSecundario = r.CIDSecundario,
+                    CIDCausasAssociadas = r.CIDCausasAssociadas,
                     Solicitante= r.Solicitante,
                 };
             });
 
             return View(lista);
+
         }
     }
 }
