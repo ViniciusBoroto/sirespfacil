@@ -8,7 +8,7 @@
         public DateOnly DataNascimento { get; set; }
         public char? Sexo { get; set; }
 
-        public int Idade { get; set; }
-        public List<RessonanciaMagnetica> RessonanciaMagneticas { get; set; }
+        public int Idade { get; set; } = 0;
+        public List<RessonanciaMagnetica> RessonanciaMagneticas { get; set; } = new();
     }
 }
