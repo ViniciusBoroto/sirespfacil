@@ -18,7 +18,11 @@ namespace SirespFacil.Controllers
         }
         public IActionResult Index()
         {
-            var res = _context.RessonanciasMagneticas.Include(r => r.Solicitante).Include(r => r.Paciente).ToList();    
+            var res = _context.RessonanciasMagneticas
+                .Include(r => r.Solicitante)
+                .ThenInclude(s => s.Unidade)
+                .Include(r => r.Paciente)
+                .ToList();    
             // var lista = res.Select(r =>
             // {
             //     return new RessonanciaMagneticaViewModel()
