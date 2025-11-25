@@ -30,7 +30,7 @@ namespace SirespFacil.Repositories
             _db.Condutas.Add(new Conduta { Nome = "Conduta Diagnóstica" });
             _db.Condutas.Add(new Conduta { Nome = "Conduta Terapêutica" });
 
-            _db.Justificativas.Add(new Justificativa{ Nome = "Lesão" });
+            _db.Justificativas.Add(new Justificativa { Nome = "Lesão" });
             _db.Justificativas.Add(new Justificativa { Nome = "Tumor" });
             _db.Justificativas.Add(new Justificativa { Nome = "Pré Cirúrgico" });
             _db.Justificativas.Add(new Justificativa { Nome = "Pós Cirúrgico" });
@@ -51,11 +51,13 @@ namespace SirespFacil.Repositories
 
         public void Add(RessonanciaMagnetica ressonancia)
         {
+            ressonancia.ExamesSolicitados = new();
             ressonancia.CriteriosDeAutorizacao?.ForEach(ca =>
             {
-                _db.Attach(ca.Tipo);
+                if (ca != null)
+                    _db.Attach(ca.Tipo);
             });
-            if (ressonancia.Solicitante?.Id != 0)
+            if (ressonancia.Solicitante is not null && ressonancia.Solicitante?.Id != 0)
             {
                 _db.Attach(ressonancia.Solicitante!);
                 if (ressonancia.Solicitante!.Unidade.Id != 0)
@@ -63,22 +65,28 @@ namespace SirespFacil.Repositories
                 if (ressonancia.Solicitante.Medico.Id != 0)
                     _db.Attach(ressonancia.Solicitante.Medico);
             }
-            if (ressonancia.Paciente.Id != 0)
+            if (ressonancia.Paciente is not null && ressonancia.Paciente.Id != 0 )
                 _db.Attach(ressonancia.Paciente);
             if (ressonancia.ExamesSolicitados is not null)
             {
-            ressonancia.ExamesSolicitados.ForEach(es =>
-            {
-                _db.Attach(es.Lateralidade);
-            });
+                ressonancia.ExamesSolicitados.ForEach(es =>
+                {
+                    if (es is not null)
+                        _db.Attach(es.Lateralidade);
+                });
             }
 
-            _db.Attach(ressonancia.Conduta);
-            _db.Attach(ressonancia.Justificativa);
-            ressonancia.Exames?.ForEach(e =>
+            if (ressonancia.Conduta is not null)
+                _db.Attach(ressonancia.Conduta);
+            if (ressonancia.Justificativa is not null)
+                _db.Attach(ressonancia.Justificativa);
+            if (ressonancia.Exames is not null)
             {
-                _db.Attach(e.Tipo);
-            });
+                ressonancia.Exames?.ForEach(e =>
+                {
+                    _db.Attach(e.Tipo);
+                });
+            }
             _db.RessonanciasMagneticas.Add(ressonancia);
             _db.SaveChanges();
         }
